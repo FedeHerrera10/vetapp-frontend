@@ -1,4 +1,5 @@
-import BrandIcon from '../../assets/img/brand.svg';
+import { Link } from 'react-router-dom';
+import { BrandLink } from './BrandLink';
 
 export const Navbar = () => {
   const handleClick = () => {
@@ -9,12 +10,7 @@ export const Navbar = () => {
   return (
     <nav className="border-gray-200 bg-gray-50">
       <div className=" flex flex-wrap items-center justify-between mx-auto p-4 md:justify-evenly">
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src={BrandIcon} alt='brand-icon' className='size-8'/>
-          <p className='self-center text-2xl font-semibold whitespace-nowrap'>
-          Vet<span className='text-indigo-500'>App</span>
-          </p>
-        </a>
+        <BrandLink/>
         <button
           onClick={() => handleClick()}
           data-collapse-toggle="navbar-hamburger"
@@ -68,12 +64,12 @@ export const Navbar = () => {
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/auth/login"
                 className="block py-2 px-3 text-gray-900 rounded hover:bg-indigo-500 hover:text-white"
               >
                 Ingresar
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
