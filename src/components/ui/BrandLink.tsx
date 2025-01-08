@@ -8,7 +8,7 @@ export const BrandLink = () => {
       className="flex items-center space-x-3 rtl:space-x-reverse mx-auto w-32"
     >
       <img src={BrandIcon} alt="brand-icon" className="size-8" />
-      <p className="self-center text-2xl font-semibold whitespace-nowrap">
+      <p className="self-center text-2xl font-semibold whitespace-nowrap xl:text-3xl">
         Vet<span className="text-indigo-500">App</span>
       </p>
     </Link>
