@@ -8,11 +8,11 @@ export const Index = () => {
 
   return( 
     <>
-    <main>
-      <header>
+    <header>
         <Navbar/>
-        <Hero/>
-      </header>
+    </header>
+    <main className="mt-6 px-8 pt-4 max-w-[1800px] mx-auto">
+    <Hero/>
       <SectionServices/>
       <SectionStep/>
     </main>

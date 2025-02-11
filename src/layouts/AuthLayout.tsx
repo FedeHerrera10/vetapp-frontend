@@ -1,11 +1,14 @@
 import { Outlet } from "react-router-dom"
-
-
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/ReactToastify.css'
 
 export const AuthLayout = () => {
   return (
-    <div className="bg-red-600 min-h-screen">
+    <div className="bg-gray-100">
         <Outlet/>
+        <ToastContainer
+      pauseOnHover={false}
+      pauseOnFocusLoss={false}/>
     </div>
   )
 }
