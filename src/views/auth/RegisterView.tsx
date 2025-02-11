@@ -3,7 +3,7 @@ import { BrandLink } from "../../components/ui/BrandLink";
 import { FormRegister } from "./FormRegister";
 export const RegisterView = () => {
   return (
-    <div className="h-screen  place-content-center lg:p-5 ">
+    <div className="min-h-screen  place-content-center lg:p-5 ">
           <div className=" flex flex-col justify-center items-stretch  p-3 lg:flex-row lg:max-w-screen-lg lg:mx-auto xl:max-w-screen-xl ">
           <div
               className="hidden lg:inline  w-1/2 bg-slate-200 text-center relative max-h-full    bg-contain bg-bottom bg-no-repeat rounded-l-lg"

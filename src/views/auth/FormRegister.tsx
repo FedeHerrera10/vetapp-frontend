@@ -1,28 +1,47 @@
 import { useForm } from "react-hook-form";
 import { RegisterForm } from "../../types";
 import { MessageError } from "../../components/ui/MessageError";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "../../api/AuthAPI";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const FormRegister = () => {
+  
   const initialValues: RegisterForm = {
     name: "",
     lastname: "",
     username: "",
     email: "",
     password: "",
-    passwordRepeat: "",
+    passwordRepeat: ""
   };
-
+  
+  const navigate = useNavigate();
+  
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<RegisterForm>({ defaultValues: initialValues });
+  
+  const {mutate} = useMutation({
+    mutationFn:(registerUser),
+    onError:(error)=>{
+      toast.error(error.message);
+    },
+    onSuccess :()=>{
+      toast.success('Usuario Registrado , verifica tu correco electronico');
+      navigate('/auth/login');
+    }
+  })
+
 
   const password = watch("password");
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    mutate(data);
   });
 
   return (
@@ -42,6 +61,7 @@ export const FormRegister = () => {
               value: true,
               message: "El nombre es requerido",
             },
+            minLength:4,
             maxLength: 50,
           })}
         />
@@ -59,6 +79,7 @@ export const FormRegister = () => {
               value: true,
               message: "El apellido es requerido",
             },
+            minLength:4,
             maxLength: 50,
           })}
         />
@@ -76,6 +97,7 @@ export const FormRegister = () => {
               value: true,
               message: "El usuario es requerido",
             },
+            minLength:4,
             maxLength: 20,
           })}
         />
@@ -110,6 +132,7 @@ export const FormRegister = () => {
               value: true,
               message: "El password es requerido",
             },
+            minLength:8,
             maxLength: 20,
           })}
         />
@@ -139,9 +162,9 @@ export const FormRegister = () => {
           className="w-6 h-6 -ml-2"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
           <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
           <circle cx="8.5" cy="7" r="4" />

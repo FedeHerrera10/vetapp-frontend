@@ -1,6 +1,11 @@
 import { useForm } from "react-hook-form";
 import { MessageError } from "../../components/ui/MessageError";
 import { UserLoginForm } from "../../types";
+import { useAuth } from "../../hooks/UseAuth";
+import { useNavigate } from "react-router-dom";
+import { authenticateUser } from "../../api/AuthAPI";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 export const FormLogin = () => {
   const initialValues: UserLoginForm = {
@@ -13,9 +18,25 @@ export const FormLogin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: initialValues });
+  
+  const navigate = useNavigate();
+  
+  const {login} = useAuth();
+
+  const {mutate} = useMutation({
+    mutationFn:(authenticateUser),
+    onError:(error)=>{
+      toast.error(error.message);
+    },
+    onSuccess :(data)=>{
+      login(data.token);
+      toast.success('Usuario Registrado , verifica tu correco electronico');
+      navigate('/app');
+    }
+  })
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    mutate(data);
   });
 
   return (
@@ -31,6 +52,7 @@ export const FormLogin = () => {
             value: true,
             message: "El usuario es requerido",
           },
+          minLength: 4,
           maxLength: 20,
         })}
       />
@@ -48,6 +70,7 @@ export const FormLogin = () => {
             value: true,
             message: "La contraseña es requerida",
           },
+          minLength: 4,
           maxLength: 20,
         })}
       />
