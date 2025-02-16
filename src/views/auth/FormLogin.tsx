@@ -45,7 +45,7 @@ export const FormLogin = () => {
       <input
         id="username"
         type="text"
-        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+        className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
         placeholder="Usuario"
         {...register("username", {
           required: {
@@ -59,10 +59,10 @@ export const FormLogin = () => {
 
       <MessageError message={errors?.username?.message?.toString() || null}/>
       
-      <label className="text-sm font-semibold text-slate-500 ml-1 mt-5" htmlFor="password">Contraseña</label> 
+      <label className="text-sm font-semibold text-slate-500 ml-1 mt-2" htmlFor="password">Contraseña</label> 
       <input
         id="password"
-        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+        className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
         type="password"
         placeholder="Contraseña"
         {...register("password", {
@@ -76,7 +76,7 @@ export const FormLogin = () => {
       />
      <MessageError message={errors?.password?.message?.toString() || null}/>
       <button
-        className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+        className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
         <svg width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">

@@ -53,7 +53,7 @@ export const FormRegister = () => {
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="name">Nombre</label>
         <input
           id="name"
-          className="w-full  px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
           type="text"
           placeholder="Nombre"
           {...register("name", {
@@ -71,7 +71,7 @@ export const FormRegister = () => {
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="lastname">Apellido</label>
         <input
           id="lastname"
-          className="w-full  px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
           type="text"
           placeholder="Apellido"
           {...register("lastname", {
@@ -89,7 +89,7 @@ export const FormRegister = () => {
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="username">Usuario</label>
         <input
           id="username"
-          className="w-full  px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
           type="text"
           placeholder="Usuario"
           {...register("username", {
@@ -108,7 +108,7 @@ export const FormRegister = () => {
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="email">Correo Electronico</label>
         <input
           id="email"
-          className="w-full  px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
           type="email"
           placeholder="Correo Electronico"
           {...register("email", {
@@ -124,7 +124,7 @@ export const FormRegister = () => {
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="password">Contraseña</label>
         <input
           id="password"
-          className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
           type="password"
           placeholder="Contraseña"
           {...register("password", {
@@ -142,7 +142,7 @@ export const FormRegister = () => {
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="passwordRepeat">Repetir Contraseña</label>
         <input
           id="passwordRepeat"
-          className="w-full   px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+          className="w-full   px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
           type="password"
           placeholder="Repetir Contraseña"
           {...register("passwordRepeat", {
@@ -157,7 +157,7 @@ export const FormRegister = () => {
         />
        <MessageError message={errors?.passwordRepeat?.message?.toString() || null}/>
       </div>
-      <button className="max-h-14 mt-8 py-4 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full md:row-span-4 md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+      <button className="max-h-12 mt-4 py-3 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full  md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
         <svg
           className="w-6 h-6 -ml-2"
           fill="none"
