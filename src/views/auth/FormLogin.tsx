@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { authenticateUser } from "../../api/AuthAPI";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-
+import { MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_USER_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_SUCCESS } from "../../messages";
 export const FormLogin = () => {
+ 
+
   const initialValues: UserLoginForm = {
     username: "",
     password: "",
@@ -28,9 +30,9 @@ export const FormLogin = () => {
     onError:(error)=>{
       toast.error(error.message);
     },
-    onSuccess :(data)=>{
-      login(data.token);
-      toast.success('Usuario Registrado , verifica tu correco electronico');
+    onSuccess :(token)=>{
+      login(token || '');
+      toast.success(MESSAGE_SUCCESS);
       navigate('/app');
     }
   })
@@ -45,38 +47,38 @@ export const FormLogin = () => {
       <input
         id="username"
         type="text"
-        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+        className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
         placeholder="Usuario"
+        autoComplete="off"
+        maxLength={20}
         {...register("username", {
           required: {
             value: true,
-            message: "El usuario es requerido",
-          },
-          minLength: 4,
-          maxLength: 20,
+            message: MESSAGE_USER_IS_REQUIRED,
+          }
         })}
       />
 
       <MessageError message={errors?.username?.message?.toString() || null}/>
       
-      <label className="text-sm font-semibold text-slate-500 ml-1 mt-5" htmlFor="password">Contraseña</label> 
+      <label className="text-sm font-semibold text-slate-500 ml-1 mt-2" htmlFor="password">Contraseña</label> 
       <input
         id="password"
-        className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+        className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
         type="password"
         placeholder="Contraseña"
         {...register("password", {
           required: {
             value: true,
-            message: "La contraseña es requerida",
+            message: MESSAGE_PASSWORD_IS_REQUIRED,
           },
-          minLength: 4,
-          maxLength: 20,
+          minLength:{value : 4 , message :  MESSAGE_PASSWORD_MIN_LENGTH},
+          maxLength:{value : 20 , message :  MESSAGE_PASSWORD_MAX_LENGTH}
         })}
       />
      <MessageError message={errors?.password?.message?.toString() || null}/>
       <button
-        className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+        className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
         <svg width="24px" height="24px" fill="currentColor" viewBox="0 0 24 24">

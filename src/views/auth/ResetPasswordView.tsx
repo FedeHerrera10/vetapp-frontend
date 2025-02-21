@@ -11,16 +11,16 @@ export const ResetPasswordView = () => {
           </h2>
           <form className="mt-4 space-y-4 lg:mt-5 md:space-y-5" action="#">
             <input
-              className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+              className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
               type="text"
               placeholder="Usuario"
             />
             <input
-              className="w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+              className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
               type="password"
               placeholder="Contraseña"
             />
-            <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+            <button className="mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
               <svg
                 width="24px"
                 height="24px"
@@ -32,22 +32,24 @@ export const ResetPasswordView = () => {
               <span className="ml-3">Cambiar Contraseña</span>
             </button>
           </form>
-        </div>
-        <div className="">
+          <div className="mt-8">
+        
         <Link
             to="/auth/login"
-            className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm"
+            className="block text-center text-gray-500 hover:text-gray-600 text-sm"
           >
-            ¿Tienes usario? Inica Sesion
+            ¿Tienes usuario? Inicia Sesión
           </Link>
           <Link
             to="/auth/register"
-            className="block text-center mt-5 text-gray-500 hover:text-gray-600 text-sm"
+            className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm"
           >
             ¿No tienes usuario? Registrate
           </Link>
           
         </div>
+        </div>
+        
       </div>
     </section>
   );

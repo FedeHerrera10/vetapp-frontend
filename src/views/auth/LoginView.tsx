@@ -30,7 +30,7 @@ export const LoginView = () => {
           </div>
         </div>
         <div
-          className="hidden lg:inline  w-1/2 bg-slate-200 text-center relative max-h-full    bg-contain bg-bottom bg-no-repeat rounded-r-lg"
+          className="hidden lg:inline  w-1/2 bg-slate-200 text-center relative max-h-full bg-contain bg-bottom bg-no-repeat rounded-r-lg"
           style={{ backgroundImage: "url('/img/img-login.png')" }}
         ></div>
       </div>
