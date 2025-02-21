@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { authenticateUser } from "../../api/AuthAPI";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-
+import { MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_USER_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_SUCCESS } from "../../messages";
 export const FormLogin = () => {
+ 
+
   const initialValues: UserLoginForm = {
     username: "",
     password: "",
@@ -28,9 +30,9 @@ export const FormLogin = () => {
     onError:(error)=>{
       toast.error(error.message);
     },
-    onSuccess :(data)=>{
-      login(data.token);
-      toast.success('Usuario Registrado , verifica tu correco electronico');
+    onSuccess :(token)=>{
+      login(token || '');
+      toast.success(MESSAGE_SUCCESS);
       navigate('/app');
     }
   })
@@ -47,13 +49,13 @@ export const FormLogin = () => {
         type="text"
         className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
         placeholder="Usuario"
+        autoComplete="off"
+        maxLength={20}
         {...register("username", {
           required: {
             value: true,
-            message: "El usuario es requerido",
-          },
-          minLength: 4,
-          maxLength: 20,
+            message: MESSAGE_USER_IS_REQUIRED,
+          }
         })}
       />
 
@@ -68,10 +70,10 @@ export const FormLogin = () => {
         {...register("password", {
           required: {
             value: true,
-            message: "La contraseña es requerida",
+            message: MESSAGE_PASSWORD_IS_REQUIRED,
           },
-          minLength: 4,
-          maxLength: 20,
+          minLength:{value : 4 , message :  MESSAGE_PASSWORD_MIN_LENGTH},
+          maxLength:{value : 20 , message :  MESSAGE_PASSWORD_MAX_LENGTH}
         })}
       />
      <MessageError message={errors?.password?.message?.toString() || null}/>

@@ -8,11 +8,14 @@ export async function authenticateUser(formData : UserLoginForm) {
         const {data} = await api.post(url,formData);
         const response = authenticationResponseSchema.safeParse(data);
         if(response.success){
-            return response.data
+            return response.data.token
         }
     } catch (error) {
-        if(isAxiosError(error) && error.response ){
-            throw new Error(error.response.data);
+        console.log(error)
+        if(isAxiosError(error) && error.response){
+            throw new Error(error.response.data.message);
+        }else{
+            throw new Error('Error de red o servidor');
         }
     }
 }
@@ -32,8 +35,9 @@ export async function registerUser(formData : RegisterForm){
         return data;
     } catch (error) {
         if(isAxiosError(error) && error.response ){
-            console.log(error);
             throw new Error(error.response.data);
+        }else{
+            throw new Error('Error de red o servidor');
         }
     }
 }

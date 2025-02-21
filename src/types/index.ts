@@ -24,6 +24,6 @@ type User = z.infer<typeof userSchema>;
 
 
 export type UserLoginForm = Pick<User,'username' | 'password'>;
-export type RegisterForm = Omit<User,"id">;
+export type RegisterForm = Omit<User,"id" | 'token'>;
 export type ConfirmToken = Pick<User,'token'>;
 export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;

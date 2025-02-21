@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../api/AuthAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { ERROR_GENERIC, MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
 
 export const FormRegister = () => {
   
@@ -32,7 +33,7 @@ export const FormRegister = () => {
       toast.error(error.message);
     },
     onSuccess :()=>{
-      toast.success('Usuario Registrado , verifica tu correco electronico');
+      toast.success(MESSAGE_SUCCESS);
       navigate('/auth/login');
     }
   })
@@ -59,10 +60,10 @@ export const FormRegister = () => {
           {...register("name", {
             required: {
               value: true,
-              message: "El nombre es requerido",
+              message: MESSAGE_NAME_IS_REQUIRED
             },
-            minLength:4,
-            maxLength: 50,
+            minLength: {value: 4, message: MESSAGE_NAME_MIN_LENGTH},
+            maxLength: {value: 50, message: MESSAGE_NAME_MAX_LENGTH},
           })}
         />
         <MessageError message={errors?.name?.message?.toString() || null}/>
@@ -77,13 +78,13 @@ export const FormRegister = () => {
           {...register("lastname", {
             required: {
               value: true,
-              message: "El apellido es requerido",
+              message: MESSAGE_LASTNAME_IS_REQUIRED
             },
-            minLength:4,
-            maxLength: 50,
+            minLength:{value: 4, message: MESSAGE_LASTNAME_MIN_LENGTH},
+            maxLength: {value: 50, message: MESSAGE_LASTNAME_MAX_LENGTH},
           })}
         />
-        <MessageError message={errors?.lastname?.message?.toString() || null}/>
+        <MessageError message={errors?.lastname?.message?.toString() || ERROR_GENERIC}/>
       </div>
       <div>
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="username">Usuario</label>
@@ -95,7 +96,7 @@ export const FormRegister = () => {
           {...register("username", {
             required: {
               value: true,
-              message: "El usuario es requerido",
+              message: MESSAGE_USERNAME_IS_REQUIRED
             },
             minLength:4,
             maxLength: 20,
@@ -114,7 +115,7 @@ export const FormRegister = () => {
           {...register("email", {
             required: {
               value: true,
-              message: "El email es requerido",
+              message: MESSAGE_EMAIL_IS_REQUIRED
             },
           })}
         />
@@ -130,7 +131,7 @@ export const FormRegister = () => {
           {...register("password", {
             required: {
               value: true,
-              message: "El password es requerido",
+              message: MESSAGE_PASSWORD_IS_REQUIRED,
             },
             minLength:8,
             maxLength: 20,
@@ -148,11 +149,12 @@ export const FormRegister = () => {
           {...register("passwordRepeat", {
             required: {
               value: true,
-              message: "El password es requerido",
+              message: MESSAGE_PASSWORD_IS_REQUIRED
             },
             validate: (value) =>
-              value === password || "Los Passwords no son iguales",
-            maxLength: 20,
+              value === password || MESSAGE_PASSWORDS_DO_NOT_MATCH,
+            minLength: {value: 8, message: MESSAGE_PASSWORD_MIN_LENGTH},
+            maxLength: {value: 20, message: MESSAGE_PASSWORD_MAX_LENGTH},
           })}
         />
        <MessageError message={errors?.passwordRepeat?.message?.toString() || null}/>

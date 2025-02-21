@@ -32,22 +32,24 @@ export const ResetPasswordView = () => {
               <span className="ml-3">Cambiar Contraseña</span>
             </button>
           </form>
-        </div>
-        <div className="">
+          <div className="mt-8">
+        
         <Link
             to="/auth/login"
-            className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm"
+            className="block text-center text-gray-500 hover:text-gray-600 text-sm"
           >
             ¿Tienes usuario? Inicia Sesión
           </Link>
           <Link
             to="/auth/register"
-            className="block text-center mt-5 text-gray-500 hover:text-gray-600 text-sm"
+            className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm"
           >
             ¿No tienes usuario? Registrate
           </Link>
           
         </div>
+        </div>
+        
       </div>
     </section>
   );

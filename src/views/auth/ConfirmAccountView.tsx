@@ -18,26 +18,28 @@ export const ConfirmAccountView = () => {
 
   return (
     <div className="h-screen bg-gray-100  place-content-center p-5 ">
-         <div className="pt-6 w-full bg-white  max-w-md mx-auto rounded-lg lg:w-1/2 lg:pb-4 lg:max-w-full lg:rounded-none lg:rounded-l-lg ">
+         <div className="pt-6 w-full bg-white  max-w-md mx-auto rounded-lg lg:max-w-lg ">
         <BrandLink/>
-        <h1 className="text-center mt-5 mb-2 text-2xl xl:text-3xl font-extrabold">Confirma tu Cuenta</h1>
-        <p className="block text-center  text-gray-500 hover:text-gray-600 text-md">Ingresa el codigo que recibiste por email</p>
+        <h2 className="mt-8 text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Confirma tu Cuenta
+          </h2>
+        <p className="block text-center  text-gray-500 text-sm">Ingresa el codigo que recibiste por email</p>
 
         <form className="mt-8 flex flex-col justify-center items-center">
-            <label htmlFor="" className="text-gray-700">Código de 6 digitos</label>
+            <label htmlFor="" className="text-gray-800 ">Código de 6 digitos</label>
             <div className="flex justify-center gap-3 mt-5">
                 <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-                    <PinInputField className="size-10 p-3 rounded-lg border-2 border-gray-500 placeholder-white"/>
-                    <PinInputField className="size-10 p-3 rounded-lg border-2 border-gray-500 placeholder-white"/>
-                    <PinInputField className="size-10 p-3 rounded-lg border-2 border-gray-500 placeholder-white"/>
-                    <PinInputField className="size-10 p-3 rounded-lg border-2 border-gray-500 placeholder-white"/>
-                    <PinInputField className="size-10 p-3 rounded-lg border-2 border-gray-500 placeholder-white"/>
-                    <PinInputField className="size-10 p-3 rounded-lg border-2 border-gray-500 placeholder-white"/>
+                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
                 </PinInput>
             </div>
         </form>
 
-        <nav className="mt-8  text-center">
+        <nav className="my-8 pb-5 text-center">
             <Link to="/" className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm">Solicitar nuevo código</Link>
         </nav>
     </div>
