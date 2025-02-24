@@ -18,6 +18,9 @@ export const authenticationResponseSchema = z.object({
     token:z.string()
 })
 
+const UserEmailSchema = z.object({
+    email: z.string().email(),
+});
 
 type User = z.infer<typeof userSchema>;
 
@@ -27,3 +30,4 @@ export type UserLoginForm = Pick<User,'username' | 'password'>;
 export type RegisterForm = Omit<User,"id" | 'token'>;
 export type ConfirmToken = Pick<User,'token'>;
 export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
+export type UserEmail = z.infer<typeof UserEmailSchema>;

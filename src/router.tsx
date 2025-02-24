@@ -7,6 +7,7 @@ import { Index } from "./pages/Index";
 import { RegisterView } from "./views/auth/RegisterView";
 import { ResetPasswordView } from "./views/auth/ResetPasswordView";
 import { ConfirmAccountView } from "./views/auth/ConfirmAccountView";
+import { NewCodeView } from "./views/auth/NewCodeView";
 
 export default function Router (){
     return (
@@ -22,7 +23,7 @@ export default function Router (){
                     <Route path="/auth/register" element={<RegisterView/>}/>
                     <Route path="/auth/reset-password" element={<ResetPasswordView/>}/>
                     <Route path="/auth/confirm-account" element={<ConfirmAccountView/>}/>
-                    
+                    <Route path="/auth/new-code" element={<NewCodeView/>}/>
                 </Route>
 
             </Routes>
