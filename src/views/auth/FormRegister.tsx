@@ -34,7 +34,7 @@ export const FormRegister = () => {
     },
     onSuccess :()=>{
       toast.success(MESSAGE_SUCCESS);
-      navigate('/auth/login');
+      navigate('/auth/confirm-account');
     }
   })
 

@@ -1,20 +1,37 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {PinInput,PinInputField} from '@chakra-ui/pin-input';
 import { BrandLink } from "../../components/ui/BrandLink";
 import { useState } from "react";
 import { ConfirmToken } from "../../types";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
+import { confirmAccount } from "../../api/AuthAPI";
+
  
 
 export const ConfirmAccountView = () => {
 
-    const[token,setToken] = useState<ConfirmToken['token']>('');
-     const handleChange  = (token : ConfirmToken['token']) => {
-        setToken(token);
-     }
-
-     const handleComplete = (token:ConfirmToken['token'])=>{
-        console.log(token); // Llamar a la api
-     }
+    const [token,setToken] = useState<ConfirmToken['token']>('');
+    const navigate = useNavigate();
+    
+    const{mutate}= useMutation({
+      mutationFn:confirmAccount,
+      onError:(error)=>{
+        toast.error(error.message)
+      },
+      onSuccess:(data)=>{
+        toast.success(data)
+        navigate('/auth/login');
+      }
+    })
+  
+    const handleChange = (token : ConfirmToken['token'] ) =>{
+        setToken(token)
+    }
+  
+    const handleComplete = (token : ConfirmToken['token'])=>{
+      mutate({token});
+    }
 
   return (
     <div className="h-screen bg-gray-100  place-content-center p-5 ">
@@ -40,7 +57,7 @@ export const ConfirmAccountView = () => {
         </form>
 
         <nav className="my-8 pb-5 text-center">
-            <Link to="/" className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm">Solicitar nuevo código</Link>
+            <Link to="/auth/new-code" className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm">Solicitar nuevo código</Link>
         </nav>
     </div>
     </div>
