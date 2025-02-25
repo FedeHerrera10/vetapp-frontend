@@ -8,6 +8,7 @@ export async function authenticateUser(formData : UserLoginForm) {
         const {data} = await api.post(url,formData);
         const response = authenticationResponseSchema.safeParse(data);
         if(response.success){
+            localStorage.setItem('vetapp',response.data.token);
             return response.data.token
         }
     } catch (error) {
@@ -74,6 +75,22 @@ export async function newCode(formData : UserEmail){
     try {
         const url = 'http://localhost:8080/api/auth/new-code';
         const {data} = await api.post<string>(url,formData);
+        return data;
+    } catch (error) {
+        console.log(error)
+        if(isAxiosError(error) && error.response ){
+            throw new Error(error.response.data.message);
+        }else{
+            throw new Error('Error de red o servidor');
+        }
+    }
+}
+
+export async function getUser(){
+    try {
+        const url = 'http://localhost:8080/api/user';
+        const {data} = await api.get(url);
+        console.log(data)
         return data;
     } catch (error) {
         console.log(error)

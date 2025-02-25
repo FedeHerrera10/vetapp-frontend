@@ -6,6 +6,7 @@ import { ConfirmToken } from "../../types";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { confirmAccount } from "../../api/AuthAPI";
+import { Spinner } from "../../components/ui/Spinner";
 
  
 
@@ -14,7 +15,7 @@ export const ConfirmAccountView = () => {
     const [token,setToken] = useState<ConfirmToken['token']>('');
     const navigate = useNavigate();
     
-    const{mutate}= useMutation({
+    const{mutate,status}= useMutation({
       mutationFn:confirmAccount,
       onError:(error)=>{
         toast.error(error.message)
@@ -44,6 +45,7 @@ export const ConfirmAccountView = () => {
 
         <form className="mt-8 flex flex-col justify-center items-center">
             <label htmlFor="" className="text-gray-800 ">Código de 6 digitos</label>
+            {status === 'pending' ? <div className="mt-6"><Spinner /></div> : 
             <div className="flex justify-center gap-3 mt-5">
                 <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
                     <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
@@ -52,10 +54,10 @@ export const ConfirmAccountView = () => {
                     <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
                     <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
                     <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
-                </PinInput>
-            </div>
+                </PinInput> 
+            </div>}
         </form>
-
+        
         <nav className="my-8 pb-5 text-center">
             <Link to="/auth/new-code" className="block text-center mt-3 text-gray-500 hover:text-gray-600 text-sm">Solicitar nuevo código</Link>
         </nav>

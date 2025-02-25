@@ -33,6 +33,7 @@ const navItems: NavItem[] = [
     href: "/appointments",
   },
   { id: "patients", title: "Patients", icon: "UserRound", href: "/patients" },
+  {id: "usuarios" ,title : "Usuarios", icon : "UserRound", href:"/app/security"},
 ];
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -53,6 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         return <UserRound className="h-5 w-5" />;
       case "BarChart3":
         return <BarChart3 className="h-5 w-5" />;
+        
       default:
         return null;
     }

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { MessageError } from "../../components/ui/MessageError";
 import { MESSAGE_EMAIL_IS_REQUIRED } from "../../messages";
+import { Spinner } from "../../components/ui/Spinner";
 export const NewCodeView = () => {
 
   const initialValues: UserEmail = {
@@ -23,7 +24,7 @@ export const NewCodeView = () => {
   
   
 
-  const {mutate} = useMutation({
+  const {mutate,status} = useMutation({
     mutationFn:(newCode),
     onError:(error)=>{
       console.log(error.message)
@@ -44,7 +45,7 @@ export const NewCodeView = () => {
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 w-full sm:max-w-xl ">
         <div className=" w-full p-6 bg-white rounded-lg shadow dark:border mt-5   sm:p-8">
           <BrandLink />
-          <h2 className="mt-4 text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+          <h2 className="my-6 text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Solicitar Nuevo Codigo, ingresando su email
           </h2>
           <form onSubmit={onSubmit} className="px-3 flex flex-col mt-6 lg:px-10">
@@ -65,7 +66,7 @@ export const NewCodeView = () => {
 
       <MessageError message={errors?.email?.message?.toString() || null}/>
       
-      <button
+      {status === 'pending' ? <Spinner /> :<button
         className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
@@ -78,7 +79,7 @@ export const NewCodeView = () => {
                 <path d="M7 10V7a5 5 0 1 1 10 0v3h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h2zm2 0h6V7a3 3 0 0 0-6 0v3zm-4 2v8h14v-8H5zm7 2a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z" />
               </svg>
         <span className="ml-3">Solicitar</span>
-      </button>
+      </button>}
     </form>
           <nav className="mt-8">
             <Link

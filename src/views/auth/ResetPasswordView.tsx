@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useMutation } from "@tanstack/react-query";
 import { MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_USER_IS_REQUIRED } from "../../messages";
 import { MessageError } from "../../components/ui/MessageError";
+import { Spinner } from "../../components/ui/Spinner";
 export const ResetPasswordView = () => {
 
   const initialValues: UserLoginForm = {
@@ -24,7 +25,7 @@ export const ResetPasswordView = () => {
   
   
 
-  const {mutate} = useMutation({
+  const {mutate,status} = useMutation({
     mutationFn:(resetPassword),
     onError:(error)=>{
       toast.error(error.message);
@@ -82,6 +83,8 @@ export const ResetPasswordView = () => {
         })}
       />
      <MessageError message={errors?.password?.message?.toString() || null}/>
+    {
+      status == 'pending' ? <Spinner/> : 
       <button
         className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
@@ -96,6 +99,7 @@ export const ResetPasswordView = () => {
               </svg>
         <span className="ml-3">Cambiar Contraseña</span>
       </button>
+    }
     </form>
           <nav className="mt-8">
             <Link

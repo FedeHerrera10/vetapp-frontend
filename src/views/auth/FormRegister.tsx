@@ -6,6 +6,7 @@ import { registerUser } from "../../api/AuthAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
+import { Spinner } from "../../components/ui/Spinner";
 
 export const FormRegister = () => {
   
@@ -27,7 +28,7 @@ export const FormRegister = () => {
     formState: { errors },
   } = useForm<RegisterForm>({ defaultValues: initialValues });
   
-  const {mutate} = useMutation({
+  const {mutate,status} = useMutation({
     mutationFn:(registerUser),
     onError:(error)=>{
       toast.error(error.message);
@@ -159,7 +160,12 @@ export const FormRegister = () => {
         />
        <MessageError message={errors?.passwordRepeat?.message?.toString() || null}/>
       </div>
-      <button className="max-h-12 mt-4 py-3 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full  md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+      {
+        status == 'pending' ? (<div className="w-full flex justify-center items-center  md:col-span-2"><Spinner/></div>
+          
+        ) :
+        (
+          <button className="max-h-12 mt-4 py-3 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full  md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
         <svg
           className="w-6 h-6 -ml-2"
           fill="none"
@@ -174,6 +180,8 @@ export const FormRegister = () => {
         </svg>
         <span className="ml-3">Registrarse</span>
       </button>
+        )
+      }
     </form>
   );
 };
