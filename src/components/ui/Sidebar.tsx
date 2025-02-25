@@ -1,4 +1,4 @@
-import React from "react";
+import { FC } from "react";
 import {
   ClipboardList,
   Users,
@@ -35,28 +35,21 @@ const navItems: NavItem[] = [
   { id: "patients", title: "Patients", icon: "UserRound", href: "/patients" },
 ];
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export const Sidebar: FC<SidebarProps> = ({
   isCollapsed,
   toggleCollapse,
   isMobileMenuOpen,
   toggleMobileMenu,
 }) => {
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case "ClipboardList":
-        return <ClipboardList className="h-5 w-5" />;
-      case "Users":
-        return <Users className="h-5 w-5" />;
-      case "Calendar":
-        return <Calendar className="h-5 w-5" />;
-      case "UserRound":
-        return <UserRound className="h-5 w-5" />;
-      case "BarChart3":
-        return <BarChart3 className="h-5 w-5" />;
-      default:
-        return null;
-    }
+  const iconMap: { [key: string]: React.ReactNode } = {
+    ClipboardList: <ClipboardList className="h-5 w-5" />,
+    Users: <Users className="h-5 w-5" />,
+    Calendar: <Calendar className="h-5 w-5" />,
+    UserRound: <UserRound className="h-5 w-5" />,
+    BarChart3: <BarChart3 className="h-5 w-5" />,
   };
+
+  const getIcon = (iconName: string) => iconMap[iconName] || null;
 
   return (
     <>
@@ -80,6 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           {/* Collapse Button (Desktop only) */}
           <button
             onClick={toggleCollapse}
+            aria-expanded={!isCollapsed}
             className="hidden lg:flex absolute right-0 top-20 transform translate-x-1/2 h-8 w-8 rounded-full bg-indigo-100 dark:bg-indigo-800 items-center justify-center shadow-md"
           >
             {isCollapsed ? (

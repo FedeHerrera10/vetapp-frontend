@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useState } from "react";
 import { Sun, Moon, User, Settings, LogOut, ChevronDown } from "lucide-react";
 import { UserMenuOption } from "../../types";
 import { BrandLink } from "./BrandLink";
@@ -23,11 +23,8 @@ const userMenuOptions: UserMenuOption[] = [
   },
 ];
 
-export const NavbarDash: React.FC<NavbarProps> = ({
-  isDarkMode,
-  toggleDarkMode,
-}) => {
-  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+export const NavbarDash: FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-20">
@@ -37,7 +34,7 @@ export const NavbarDash: React.FC<NavbarProps> = ({
             Vet App
           </h1> */}
           <div className="hidden lg:block">
-            <BrandLink />
+            <BrandLink isDarkMode={isDarkMode} />
           </div>
         </div>
 
