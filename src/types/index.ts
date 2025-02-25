@@ -1,5 +1,20 @@
 import {z} from 'zod';
 
+/** Navbar dash y sidebar */
+export type NavItem = {
+    id: string;
+    title: string;
+    icon: string;
+    href: string;
+  };
+  
+  export type UserMenuOption = {
+    id: string;
+    label: string;
+    icon: string;
+    action: () => void;
+  };
+
 /** auth & users */
 
 const userSchema = z.object({
