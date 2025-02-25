@@ -10,6 +10,7 @@ import {
   Menu,
 } from "lucide-react";
 import { NavItem } from "../../types";
+import { Link } from "react-router-dom";
 
 interface SidebarProps {
   isCollapsed: boolean;
@@ -25,7 +26,7 @@ const navItems: NavItem[] = [
     icon: "ClipboardList",
     href: "/clinical",
   },
-  { id: "vets", title: "Veterinarians", icon: "Users", href: "/vets" },
+  { id: "vets", title: "Veterinarians", icon: "Users", href: "vet" },
   {
     id: "appointments",
     title: "Appointments",
@@ -86,16 +87,16 @@ export const Sidebar: FC<SidebarProps> = ({
           {/* Navigation Items */}
           <nav className="flex-1 px-2 py-4">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.id}
-                href={item.href}
+                to={`/app/${item.href}`}
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg mb-1
                   text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20
                   hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors`}
               >
                 <span className="flex-shrink-0">{getIcon(item.icon)}</span>
                 {!isCollapsed && <span>{item.title}</span>}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

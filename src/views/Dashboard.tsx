@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavbarDash } from "../components/ui/NavbarDash";
 import { Sidebar } from "../components/ui/Sidebar";
+import { Outlet } from "react-router-dom";
 
 export const Dashboard = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -43,6 +44,7 @@ export const Dashboard = () => {
             {/* Example content - Replace with actual dashboard content */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Contenido */}
+              <Outlet />
             </div>
           </div>
         </div>
