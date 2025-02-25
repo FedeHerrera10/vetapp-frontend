@@ -35,7 +35,7 @@ export const ConfirmAccountView = () => {
 
   return (
     <div className="h-screen bg-gray-100  place-content-center p-5 ">
-         <div className="pt-6 w-full bg-white  max-w-md mx-auto rounded-lg lg:max-w-lg ">
+         <div className="pt-6 w-full bg-white  max-w-md mx-auto min-w-sm rounded-lg lg:max-w-lg ">
         <BrandLink/>
         <h2 className="mt-8 text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Confirma tu Cuenta
@@ -46,12 +46,12 @@ export const ConfirmAccountView = () => {
             <label htmlFor="" className="text-gray-800 ">Código de 6 digitos</label>
             <div className="flex justify-center gap-3 mt-5">
                 <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
-                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
-                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
-                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
-                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
-                    <PinInputField className="size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
+                    <PinInputField className="size-10 md:size-12 p-3 rounded-lg border border-gray-400 placeholder-white outline-none focus:border-gray-700"/>
                 </PinInput>
             </div>
         </form>

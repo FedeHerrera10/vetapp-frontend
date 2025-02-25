@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../api/AuthAPI";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { ERROR_GENERIC, MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
+import { MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
 
 export const FormRegister = () => {
   
@@ -84,7 +84,7 @@ export const FormRegister = () => {
             maxLength: {value: 50, message: MESSAGE_LASTNAME_MAX_LENGTH},
           })}
         />
-        <MessageError message={errors?.lastname?.message?.toString() || ERROR_GENERIC}/>
+        <MessageError message={errors?.lastname?.message?.toString() || null}/>
       </div>
       <div>
       <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="username">Usuario</label>
