@@ -9,6 +9,7 @@ import { ResetPasswordView } from "./views/auth/ResetPasswordView";
 import { ConfirmAccountView } from "./views/auth/ConfirmAccountView";
 import { NewCodeView } from "./views/auth/NewCodeView";
 import { Veterinarian } from "./views/Veterinarian";
+import { Turnos } from "./views/Turnos";
 
 export default function Router() {
   return (
@@ -18,6 +19,7 @@ export default function Router() {
         <Route element={<AppLayout />}>
           <Route path="/app/" element={<Dashboard />}>
             <Route element={<Veterinarian />} path="vet" />
+            <Route element={<Turnos />} path="turnos" />
           </Route>
         </Route>
 

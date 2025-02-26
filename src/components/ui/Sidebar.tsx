@@ -28,10 +28,10 @@ const navItems: NavItem[] = [
   },
   { id: "vets", title: "Veterinarians", icon: "Users", href: "vet" },
   {
-    id: "appointments",
-    title: "Appointments",
+    id: "turnos",
+    title: "Turnos",
     icon: "Calendar",
-    href: "/appointments",
+    href: "turnos",
   },
   { id: "patients", title: "Patients", icon: "UserRound", href: "/patients" },
 ];

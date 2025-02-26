@@ -1,27 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavbarDash } from "../components/ui/NavbarDash";
 import { Sidebar } from "../components/ui/Sidebar";
 import { Outlet } from "react-router-dom";
+import useTheme from "../hooks/UseTheme";
 
 export const Dashboard = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [isDarkMode]);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <NavbarDash
-        isDarkMode={isDarkMode}
-        toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-      />
+      <NavbarDash isDarkMode={isDarkMode} toggleDarkMode={toggleTheme} />
 
       <Sidebar
         isCollapsed={isCollapsed}
