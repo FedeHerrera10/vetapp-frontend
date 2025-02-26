@@ -6,7 +6,6 @@ import useTheme from "../hooks/UseTheme";
 
 export const Dashboard = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
 
   return (
@@ -16,14 +15,11 @@ export const Dashboard = () => {
       <Sidebar
         isCollapsed={isCollapsed}
         toggleCollapse={() => setIsCollapsed(!isCollapsed)}
-        isMobileMenuOpen={isMobileMenuOpen}
-        toggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
 
       <main
-        className={`pt-16 min-h-screen transition-all duration-300
-          ${isCollapsed ? "lg:pl-16" : "lg:pl-64"}
-          ${isMobileMenuOpen ? "pl-64" : "pl-0"}`}
+        className={`pt-16 min-h-screen transition-all ease-in-out duration-300
+          ${isCollapsed ? "pl-16" : "lg:pl-64 "}`}
       >
         <div className="p-6">
           <div className="max-w-7xl mx-auto">

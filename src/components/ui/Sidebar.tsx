@@ -15,8 +15,6 @@ import { Link } from "react-router-dom";
 interface SidebarProps {
   isCollapsed: boolean;
   toggleCollapse: () => void;
-  isMobileMenuOpen: boolean;
-  toggleMobileMenu: () => void;
 }
 
 const navItems: NavItem[] = [
@@ -36,12 +34,7 @@ const navItems: NavItem[] = [
   { id: "patients", title: "Patients", icon: "UserRound", href: "/patients" },
 ];
 
-export const Sidebar: FC<SidebarProps> = ({
-  isCollapsed,
-  toggleCollapse,
-  isMobileMenuOpen,
-  toggleMobileMenu,
-}) => {
+export const Sidebar: FC<SidebarProps> = ({ isCollapsed, toggleCollapse }) => {
   const iconMap: { [key: string]: React.ReactNode } = {
     ClipboardList: <ClipboardList className="h-5 w-5" />,
     Users: <Users className="h-5 w-5" />,
@@ -56,7 +49,7 @@ export const Sidebar: FC<SidebarProps> = ({
     <>
       {/* Mobile Menu Button */}
       <button
-        onClick={toggleMobileMenu}
+        onClick={toggleCollapse}
         className="fixed top-5 left-4 z-30 lg:hidden"
         aria-label="Toggle mobile menu"
       >
@@ -67,14 +60,12 @@ export const Sidebar: FC<SidebarProps> = ({
       <aside
         className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-10 
           ${isCollapsed ? "w-16" : "w-64"} 
-          lg:translate-x-0 
-          ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+          translate-x-0 transition-all duration-100 `}
       >
         <div className="flex flex-col h-full pt-16">
           {/* Collapse Button (Desktop only) */}
           <button
             onClick={toggleCollapse}
-            aria-expanded={!isCollapsed}
             className="hidden lg:flex absolute right-0 top-20 transform translate-x-1/2 h-8 w-8 rounded-full bg-indigo-100 dark:bg-indigo-800 items-center justify-center shadow-md"
           >
             {isCollapsed ? (
