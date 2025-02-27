@@ -1,5 +1,25 @@
 import {z} from 'zod';
 
+// Define the Veterinarian type
+export type VetType = {
+  id: number;
+  name: string;
+  specialty: string;
+  imageUrl: string;
+};
+
+export type CardType = {
+  vet: VetType;
+};
+
+export type SeachType = {
+  initialVeterinarians: VetType[];
+  setFilteredVets: (vets: VetType[]) => void;
+  searchTerm: string;
+  setSearchTerm: (searchTerm: string) => void;
+};
+
+
 /** Navbar dash y sidebar */
 export type NavItem = {
     id: string;
