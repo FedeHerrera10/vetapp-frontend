@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { BrandLink } from "../../components/ui/BrandLink";
-import { FormRegister } from "./FormRegister";
+import { FormRegister } from "../../components/auth/FormRegister";
 export const RegisterView = () => {
   return (
     <div className="min-h-screen  place-content-center lg:p-5 ">

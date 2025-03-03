@@ -8,8 +8,8 @@ import { RegisterView } from "./views/auth/RegisterView";
 import { ResetPasswordView } from "./views/auth/ResetPasswordView";
 import { ConfirmAccountView } from "./views/auth/ConfirmAccountView";
 import { NewCodeView } from "./views/auth/NewCodeView";
-import { CreateUserView } from "./views/auth/CreateUserView";
 import { DashboardSecurity } from "./views/security/DashboardSecurity";
+import { FormRegister } from "./components/auth/FormRegister";
 
 export default function Router (){
     return (
@@ -19,7 +19,7 @@ export default function Router (){
                 <Route element={<AppLayout/>}>
                     <Route path="/app/" element={<Dashboard />}>
                     <Route path="security" element={<DashboardSecurity />} />
-                    <Route path="security/add-user/veterinary" element={<CreateUserView />} />
+                    <Route path="security/add-user/:role" element={<FormRegister />} />
                 </Route>
                 </Route>
 
