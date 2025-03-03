@@ -45,7 +45,7 @@ export const FormLogin = () => {
   });
 
   return (
-    <form onSubmit={onSubmit} className="px-3 flex flex-col mt-6 lg:px-10">
+    <form onSubmit={onSubmit} className="px-8 flex flex-col mt-6 lg:px-10">
       <label
         className="text-sm font-semibold text-slate-500 ml-1"
         htmlFor="username"

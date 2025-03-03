@@ -10,37 +10,24 @@ import {
   Menu,
 } from "lucide-react";
 import { NavItem } from "../../types";
+import { getMenu } from "../../types/sidebarMenu";
 
 interface SidebarProps {
   isCollapsed: boolean;
   toggleCollapse: () => void;
   isMobileMenuOpen: boolean;
   toggleMobileMenu: () => void;
+  role:string;
 }
 
-const navItems: NavItem[] = [
-  {
-    id: "clinical",
-    title: "Clinical History",
-    icon: "ClipboardList",
-    href: "/clinical",
-  },
-  { id: "vets", title: "Veterinarians", icon: "Users", href: "/vets" },
-  {
-    id: "appointments",
-    title: "Appointments",
-    icon: "Calendar",
-    href: "/appointments",
-  },
-  { id: "patients", title: "Patients", icon: "UserRound", href: "/patients" },
-  {id: "usuarios" ,title : "Usuarios", icon : "UserRound", href:"/app/security"},
-];
+
 
 export const Sidebar: React.FC<SidebarProps> = ({
   isCollapsed,
   toggleCollapse,
   isMobileMenuOpen,
   toggleMobileMenu,
+  role
 }) => {
   const getIcon = (iconName: string) => {
     switch (iconName) {
@@ -59,7 +46,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         return null;
     }
   };
-
+  const navItems: NavItem[] = getMenu(role);
   return (
     <>
       {/* Mobile Menu Button */}

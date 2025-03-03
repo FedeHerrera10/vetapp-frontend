@@ -4,23 +4,47 @@ import { MessageError } from "../../components/ui/MessageError";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../api/AuthAPI";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
+import { MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USER_REGISTERED, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
 import { Spinner } from "../../components/ui/Spinner";
 
 export const FormRegister = () => {
   
+ 
+  /** Se determina si el registro es desde la parte publica o desde la parte  */
+  const location = useLocation();
+  const {pathname}=location;
+  
+  const params = useParams()
+  const paramRole =params.role;
+  
+  let ROLE_CLIENT =false;
+  let ROLE_ADMIN =false;
+  let ROLE_VETERINARY =false;
+  let URL_NAVIGATE ='';
+
+  if(pathname === '/auth/register') ROLE_CLIENT = true;
+  if(paramRole === 'admin') ROLE_ADMIN = true;
+  if(paramRole === 'veterinary') ROLE_VETERINARY = true;
+  
+  URL_NAVIGATE = (ROLE_ADMIN || ROLE_VETERINARY) ? '/app/security' : '/auth/confirm-account';
+
   const initialValues: RegisterForm = {
     name: "",
     lastname: "",
     username: "",
     email: "",
     password: "",
-    passwordRepeat: ""
+    passwordRepeat: "",
+    admin: ROLE_ADMIN,
+    cliente : ROLE_CLIENT,
+    veterinario : ROLE_VETERINARY
   };
-  
+
   const navigate = useNavigate();
   
+  
+
   const {
     register,
     handleSubmit,
@@ -34,11 +58,12 @@ export const FormRegister = () => {
       toast.error(error.message);
     },
     onSuccess :()=>{
-      toast.success(MESSAGE_SUCCESS);
-      navigate('/auth/confirm-account');
+      toast.success(ROLE_CLIENT ? MESSAGE_SUCCESS : MESSAGE_USER_REGISTERED);
+      navigate(URL_NAVIGATE);
     }
   })
 
+  if(!ROLE_CLIENT && !ROLE_ADMIN && !ROLE_VETERINARY) return  <Navigate to="/app/security" />;
 
   const password = watch("password");
 
@@ -178,7 +203,7 @@ export const FormRegister = () => {
           <circle cx="8.5" cy="7" r="4" />
           <path d="M20 8v6M23 11h-6" />
         </svg>
-        <span className="ml-3">Registrarse</span>
+        <span className="ml-3">{ROLE_CLIENT ? 'Registrarse' : 'Registrar'}</span>
       </button>
         )
       }
