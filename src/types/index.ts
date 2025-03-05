@@ -60,3 +60,4 @@ export type ConfirmToken = Pick<User,'token'>;
 export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
 export type UserEmail = z.infer<typeof UserEmailSchema>;
 export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
+export type UserUpdateSchema = Pick<User,"name" | "lastname" | "email">;

@@ -9,7 +9,9 @@ import { ResetPasswordView } from "./views/auth/ResetPasswordView";
 import { ConfirmAccountView } from "./views/auth/ConfirmAccountView";
 import { NewCodeView } from "./views/auth/NewCodeView";
 import { DashboardSecurity } from "./views/security/DashboardSecurity";
-import { FormRegister } from "./components/auth/FormRegister";
+import { UserDetailView } from "./views/auth/UserDetailView";
+import { RegisterViewUserSystem } from "./views/auth/RegisterViewUserSystem";
+import { EditViewUserSystem } from "./views/auth/EditViewUserSystem";
 
 export default function Router (){
     return (
@@ -19,7 +21,9 @@ export default function Router (){
                 <Route element={<AppLayout/>}>
                     <Route path="/app/" element={<Dashboard />}>
                     <Route path="security" element={<DashboardSecurity />} />
-                    <Route path="security/add-user/:role" element={<FormRegister />} />
+                    <Route path="security/add-user/:role" element={<RegisterViewUserSystem />} />
+                    <Route path="security/user/view/:id" element={<UserDetailView />} />
+                    <Route path="security/user/edit/:id" element={<EditViewUserSystem />} />
                 </Route>
                 </Route>
 
