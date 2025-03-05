@@ -49,7 +49,7 @@ export const NewCodeView = () => {
             Solicitar Nuevo Codigo, ingresando su email
           </h2>
           <form onSubmit={onSubmit} className="px-3 flex flex-col mt-6 lg:px-10">
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="email">Email</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="email">Email</label>
       <input
         id="email"
         type="email"
@@ -67,7 +67,7 @@ export const NewCodeView = () => {
       <MessageError message={errors?.email?.message?.toString() || null}/>
       
       {status === 'pending' ? <Spinner /> :<button
-        className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+        className="mt-6  tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
         <svg

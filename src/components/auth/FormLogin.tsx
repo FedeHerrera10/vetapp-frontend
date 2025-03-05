@@ -45,9 +45,9 @@ export const FormLogin = () => {
   });
 
   return (
-    <form onSubmit={onSubmit} className="px-8 flex flex-col mt-6 lg:px-10">
+    <form onSubmit={onSubmit} className="md:px-8 flex flex-col mt-6 lg:px-10">
       <label
-        className="text-sm font-semibold text-slate-500 ml-1"
+        className="text-sm font-medium text-slate-700 ml-1"
         htmlFor="username"
       >
         Usuario
@@ -70,7 +70,7 @@ export const FormLogin = () => {
       <MessageError message={errors?.username?.message?.toString() || null} />
 
       <label
-        className="text-sm font-semibold text-slate-500 ml-1 mt-2"
+        className="text-sm font-medium text-slate-700 ml-1 mt-6"
         htmlFor="password"
       >
         Contraseña
@@ -94,7 +94,7 @@ export const FormLogin = () => {
         <Spinner />
       ) : (
         <button
-          className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+          className="mt-6 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
           type="submit"
         >
           <svg

@@ -49,10 +49,10 @@ const columns = [
     maxWidth: '10%',
     cell: (props) => (
       <div className='flex items-center '>
-        <a href="#" className='' onClick={() => {
+        <Link to={`/app/security/user/view/${props.id}`} className='' onClick={() => {
         clickHandler(props);
-      }}><Eye size={22} className='text-indigo-800 hover:text-indigo-700'/> </a>
-        <a href="#" className='ml-2'><Edit size={18} className='text-indigo-800 hover:text-indigo-700'/> </a>
+      }}><Eye size={22} className='text-indigo-800 hover:text-indigo-700'/> </Link>
+        <Link to={`/app/security/user/edit/${props.id}`} className='ml-2'><Edit size={18} className='text-indigo-800 hover:text-indigo-700'/> </Link>
       </div>
     )
   },
@@ -121,7 +121,6 @@ export const DashboardSecurity = () => {
         className=" border rounded-lg shadow-sm w-full"
         
       />
-     
     </div>
   );
 }   

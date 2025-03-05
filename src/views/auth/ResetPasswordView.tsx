@@ -49,7 +49,7 @@ export const ResetPasswordView = () => {
             Cambiar Contraseña
           </h2>
           <form onSubmit={onSubmit} className="px-3 flex flex-col mt-6 lg:px-10">
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="username">Usuario</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="username">Usuario</label>
       <input
         id="username"
         type="text"
@@ -67,7 +67,7 @@ export const ResetPasswordView = () => {
 
       <MessageError message={errors?.username?.message?.toString() || null}/>
       
-      <label className="text-sm font-semibold text-slate-500 ml-1 mt-2" htmlFor="password">Contraseña</label> 
+      <label className="text-sm font-medium text-slate-700 ml-1 mt-6" htmlFor="password">Contraseña</label> 
       <input
         id="password"
         className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
@@ -86,7 +86,7 @@ export const ResetPasswordView = () => {
     {
       status == 'pending' ? <Spinner/> : 
       <button
-        className="mt-2 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+        className="mt-6 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-3 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
         type="submit"
       >
         <svg
