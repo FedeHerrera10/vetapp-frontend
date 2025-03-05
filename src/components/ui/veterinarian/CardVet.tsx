@@ -1,11 +1,12 @@
 import { ChevronRight, User } from "lucide-react";
 import { CardType } from "@/types/index";
+import { useNavigate } from "react-router-dom";
 
 export const CardVet = ({ vet }: CardType) => {
+  const navigate = useNavigate();
   // Handle view details click
   const handleViewDetails = (id: number) => {
-    alert(`View details for veterinarian with ID: ${id}`);
-    // In a real application, this would navigate to a detail page or open a modal
+    navigate(location.pathname + `/${id}`);
   };
 
   return (

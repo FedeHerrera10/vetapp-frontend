@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState} from "react";
 import { CardVet } from "@/components/ui/veterinarian/CardVet";
 import { SearchVet } from "@/components/ui/veterinarian/SearchVet";
 import { VetType } from "@/types/index";
@@ -63,7 +63,7 @@ const initialVeterinarians: VetType[] = [
   },
 ];
 
-export const Veterinarian: FC = () => {
+export const Veterinarian = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredVets, setFilteredVets] =
     useState<VetType[]>(initialVeterinarians);

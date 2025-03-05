@@ -6,10 +6,19 @@ export type VetType = {
   name: string;
   specialty: string;
   imageUrl: string;
+  availability?: string[]; // Array of dates in ISO format
 };
 
 export type CardType = {
   vet: VetType;
+};
+
+export type AppointmentFormData = {
+  date: string;
+  time: string;
+  pet: string;
+  service: string;
+  symptoms: string;
 };
 
 export type SeachType = {
