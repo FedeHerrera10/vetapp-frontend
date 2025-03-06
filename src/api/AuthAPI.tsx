@@ -122,6 +122,7 @@ export async function getUserById(id: number) {
 }
 export async function editUser({formData ,id }: {formData: UserUpdateSchema ,id: number}) {
   try {
+    console.log(formData)
     const url = `${BASE_URL}/api/user/${id}`;
     const { data } = await api.put(url, formData);
     return data;

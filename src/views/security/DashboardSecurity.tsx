@@ -9,9 +9,6 @@ import { Link } from 'react-router-dom';
 const ROLE_VETERINARY ="veterinary";
 const ROLE_ADMIN ="admin";
 
-const clickHandler = (state : any) => {
-  console.log(state);
-}
 const columns = [
   {
     name: 'Nombre y Apellido',
@@ -49,9 +46,7 @@ const columns = [
     maxWidth: '10%',
     cell: (props) => (
       <div className='flex items-center '>
-        <Link to={`/app/security/user/view/${props.id}`} className='' onClick={() => {
-        clickHandler(props);
-      }}><Eye size={22} className='text-indigo-800 hover:text-indigo-700'/> </Link>
+        <Link to={`/app/security/user/view/${props.id}`}><Eye size={22} className='text-indigo-800 hover:text-indigo-700'/> </Link>
         <Link to={`/app/security/user/edit/${props.id}`} className='ml-2'><Edit size={18} className='text-indigo-800 hover:text-indigo-700'/> </Link>
       </div>
     )
@@ -108,8 +103,8 @@ export const DashboardSecurity = () => {
         />
        </div>
        <div className='w-full flex gap-1 md:w-1/2 md:justify-end'>
-       <button className='flex items-center gap-1 font-medium p-1 md:p-2 rounded-md bg-green-600 text-slate-100 hover:bg-green-700 hover:transition-colors text-sm '> <Stethoscope size={20}/><Link to={`/app/security/add-user/${ROLE_VETERINARY}`} className=''>Alta Veterinario </Link></button>
-       <button className='flex items-center gap-1 font-medium p-1 md:p-2 rounded-md bg-violet-600 text-slate-100 hover:bg-violet-700 hover:transition-colors text-sm'><UserRoundCog size={20}/><Link to={`/app/security/add-user/${ROLE_ADMIN}`} className=''> Alta Usuario Sistema</Link></button>
+       <button className='flex items-center gap-1 font-medium p-2 md:p-2 rounded-md bg-green-600 text-slate-100 hover:bg-green-700 hover:transition-colors text-sm '> <Stethoscope size={20}/><Link to={`/app/security/add-user/${ROLE_VETERINARY}`} className=''>Alta Veterinario </Link></button>
+       <button className='flex items-center gap-1 font-medium p-2 md:p-2 rounded-md bg-violet-600 text-slate-100 hover:bg-violet-700 hover:transition-colors text-sm'><UserRoundCog size={20}/><Link to={`/app/security/add-user/${ROLE_ADMIN}`} className=''> Alta Usuario Sistema</Link></button>
        </div>
       </div>     
       <DataTable
