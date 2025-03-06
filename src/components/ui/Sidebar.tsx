@@ -11,40 +11,41 @@ import {
 } from "lucide-react";
 import { NavItem } from "../../types";
 import { Link } from "react-router-dom";
+import { getMenu } from "../../types/sidebarMenu";
 
 interface SidebarProps {
   isCollapsed: boolean;
   toggleCollapse: () => void;
+  isMobileMenuOpen: boolean;
+  toggleMobileMenu: () => void;
+  role: string;
 }
 
-const navItems: NavItem[] = [
-  {
-    id: "clinical",
-    title: "Clinical History",
-    icon: "ClipboardList",
-    href: "/clinical",
-  },
-  { id: "vets", title: "Veterinarians", icon: "Users", href: "vet" },
-  {
-    id: "turnos",
-    title: "Turnos",
-    icon: "Calendar",
-    href: "turnos",
-  },
-  { id: "patients", title: "Patients", icon: "UserRound", href: "/patients" },
-];
+export const Sidebar: React.FC<SidebarProps> = ({
+  isCollapsed,
+  toggleCollapse,
+  isMobileMenuOpen,
+  toggleMobileMenu,
+  role,
+}) => {
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case "ClipboardList":
+        return <ClipboardList className="h-5 w-5" />;
+      case "Users":
+        return <Users className="h-5 w-5" />;
+      case "Calendar":
+        return <Calendar className="h-5 w-5" />;
+      case "UserRound":
+        return <UserRound className="h-5 w-5" />;
+      case "BarChart3":
+        return <BarChart3 className="h-5 w-5" />;
 
-export const Sidebar: FC<SidebarProps> = ({ isCollapsed, toggleCollapse }) => {
-  const iconMap: { [key: string]: React.ReactNode } = {
-    ClipboardList: <ClipboardList className="h-5 w-5" />,
-    Users: <Users className="h-5 w-5" />,
-    Calendar: <Calendar className="h-5 w-5" />,
-    UserRound: <UserRound className="h-5 w-5" />,
-    BarChart3: <BarChart3 className="h-5 w-5" />,
+      default:
+        return null;
+    }
   };
-
-  const getIcon = (iconName: string) => iconMap[iconName] || null;
-
+  const navItems: NavItem[] = getMenu(role);
   return (
     <>
       {/* Mobile Menu Button */}

@@ -4,10 +4,20 @@ import { MessageError } from "../../components/ui/MessageError";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "../../api/AuthAPI";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { ERROR_GENERIC, MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
+import {useLocation, useNavigate } from "react-router-dom";
+import { MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_PASSWORD_IS_REQUIRED, MESSAGE_PASSWORD_MAX_LENGTH, MESSAGE_PASSWORD_MIN_LENGTH, MESSAGE_PASSWORDS_DO_NOT_MATCH, MESSAGE_SUCCESS, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
+import { Spinner } from "../../components/ui/Spinner";
 
 export const FormRegister = () => {
+  
+ const location = useLocation();
+  const {pathname}=location;
+  
+  let ROLE_CLIENT =false;
+
+  if(pathname === '/auth/register') ROLE_CLIENT = true;
+  
+
   
   const initialValues: RegisterForm = {
     name: "",
@@ -15,11 +25,17 @@ export const FormRegister = () => {
     username: "",
     email: "",
     password: "",
-    passwordRepeat: ""
+    passwordRepeat: "",
+    admin: false,
+    cliente : ROLE_CLIENT,
+    veterinario : false
   };
-  
+
+
   const navigate = useNavigate();
   
+  
+
   const {
     register,
     handleSubmit,
@@ -27,14 +43,14 @@ export const FormRegister = () => {
     formState: { errors },
   } = useForm<RegisterForm>({ defaultValues: initialValues });
   
-  const {mutate} = useMutation({
+  const {mutate,status} = useMutation({
     mutationFn:(registerUser),
     onError:(error)=>{
       toast.error(error.message);
     },
     onSuccess :()=>{
       toast.success(MESSAGE_SUCCESS);
-      navigate('/auth/confirm-account');
+      navigate("/auth/login");
     }
   })
 
@@ -48,10 +64,10 @@ export const FormRegister = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto max-w-xs flex flex-col place-content-center px-2 lg:max-w-xl lg:grid grid-cols-2 grid-rows-4 gap-3 "
+      className="mx-auto max-w-xs flex flex-col place-content-center lg:max-w-xl lg:grid grid-cols-2 grid-rows-4 gap-3 "
     >
       <div>
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="name">Nombre</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="name">Nombre</label>
         <input
           id="name"
           className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
@@ -69,7 +85,7 @@ export const FormRegister = () => {
         <MessageError message={errors?.name?.message?.toString() || null}/>
       </div>
       <div>
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="lastname">Apellido</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="lastname">Apellido</label>
         <input
           id="lastname"
           className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
@@ -84,10 +100,10 @@ export const FormRegister = () => {
             maxLength: {value: 50, message: MESSAGE_LASTNAME_MAX_LENGTH},
           })}
         />
-        <MessageError message={errors?.lastname?.message?.toString() || ERROR_GENERIC}/>
+        <MessageError message={errors?.lastname?.message?.toString() || null}/>
       </div>
       <div>
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="username">Usuario</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="username">Usuario</label>
         <input
           id="username"
           className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
@@ -106,7 +122,7 @@ export const FormRegister = () => {
       </div>
       
       <div>
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="email">Correo Electronico</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="email">Correo Electronico</label>
         <input
           id="email"
           className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
@@ -121,8 +137,9 @@ export const FormRegister = () => {
         />
         <MessageError message={errors?.email?.message?.toString() || null}/>
       </div>
-      <div>
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="password">Contraseña</label>
+        
+          <div>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="password">Contraseña</label>
         <input
           id="password"
           className="w-full px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
@@ -140,7 +157,7 @@ export const FormRegister = () => {
        <MessageError message={errors?.password?.message?.toString() || null}/>
       </div>
       <div>
-      <label className="text-sm font-semibold text-slate-500 ml-1" htmlFor="passwordRepeat">Repetir Contraseña</label>
+      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="passwordRepeat">Repetir Contraseña</label>
         <input
           id="passwordRepeat"
           className="w-full   px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
@@ -159,7 +176,12 @@ export const FormRegister = () => {
         />
        <MessageError message={errors?.passwordRepeat?.message?.toString() || null}/>
       </div>
-      <button className="max-h-12 mt-4 py-3 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full  md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
+      {
+        status == 'pending' ? (<div className="w-full flex justify-center items-center  md:col-span-2"><Spinner/></div>
+          
+        ) :
+        (
+          <button className="max-h-12 mt-4 py-3 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full  md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
         <svg
           className="w-6 h-6 -ml-2"
           fill="none"
@@ -174,6 +196,8 @@ export const FormRegister = () => {
         </svg>
         <span className="ml-3">Registrarse</span>
       </button>
+        )
+      }
     </form>
   );
 };

@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { BrandLink } from "../../components/ui/BrandLink";
-import { FormLogin } from "./FormLogin";
+import { FormLogin } from "../../components/auth/FormLogin";
 
 export const LoginView = () => {
   return (
-    <div className="h-screen bg-gray-100  place-content-center p-5 ">
-      <div className=" flex flex-col  justify-center items-stretch  lg:flex-row lg:max-w-screen-lg lg:mx-auto xl:max-w-screen-xl ">
-        <div className="w-full bg-white  max-w-md mx-auto rounded-lg lg:w-1/2 lg:pb-4 lg:max-w-full lg:rounded-none lg:rounded-l-lg ">
-          <div className="mt-3 lg:mt-6">
+    <div className="min-h-screen bg-gray-100  place-content-center p-5 overflow-hidden lg:h-screen">
+      <div className=" flex flex-col  justify-center items-stretch  lg:flex-row lg:max-w-screen-lg lg:mx-auto xl:max-w-screen-xl sm:max-w-xl sm:mx-auto">
+        <div className="w-full bg-white sm:p-8  max-w-md mx-auto rounded-lg lg:w-1/2 lg:pb-4 lg:max-w-full lg:rounded-none lg:rounded-l-lg p-5">
+          <div className="mt-3 lg:mt-6 ">
             <BrandLink />
             <h1 className=" text-center my-5 text-2xl xl:text-3xl font-extrabold">
               Iniciar Sesión

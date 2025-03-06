@@ -2,30 +2,39 @@ import { FC, useState } from "react";
 import { Sun, Moon, User, Settings, LogOut, ChevronDown } from "lucide-react";
 import { UserMenuOption } from "../../types";
 import { BrandLink } from "./BrandLink";
+import { useNavigate } from "react-router-dom";
 
 interface NavbarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
 
-const userMenuOptions: UserMenuOption[] = [
-  {
-    id: "profile",
-    label: "Profile",
-    icon: "User",
-    action: () => console.log("Profile clicked"),
-  },
-  {
-    id: "logout",
-    label: "Logout",
-    icon: "LogOut",
-    action: () => console.log("Logout clicked"),
-  },
-];
+export const NavbarDash: React.FC<NavbarProps> = ({
+  isDarkMode,
+  toggleDarkMode,
+}) => {
+  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    setIsUserMenuOpen(false);
+    localStorage.removeItem("vetapp");
+    navigate("/auth/login");
+  };
 
-export const NavbarDash: FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-
+  const userMenuOptions: UserMenuOption[] = [
+    {
+      id: "profile",
+      label: "Profile",
+      icon: "User",
+      action: () => console.log("Profile clicked"),
+    },
+    {
+      id: "logout",
+      label: "Logout",
+      icon: "LogOut",
+      action: () => handleLogout(),
+    },
+  ];
   return (
     <nav className="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-20">
       <div className="h-full px-4 flex items-center justify-between">
@@ -77,7 +86,9 @@ export const NavbarDash: FC<NavbarProps> = ({ isDarkMode, toggleDarkMode }) => {
                     {option.icon === "Settings" && (
                       <Settings className="h-4 w-4" />
                     )}
-                    {option.icon === "LogOut" && <LogOut className="h-4 w-4" />}
+                    {option.icon === "LogOut" && (
+                      <LogOut className="h-4 w-4" onClick={handleLogout} />
+                    )}
                     <span>{option.label}</span>
                   </button>
                 ))}

@@ -54,8 +54,12 @@ const userSchema = z.object({
     email:z.string().email(),
     password:z.string(),
     passwordRepeat:z.string(),
-    token: z.string()
+    token: z.string(),
+    admin:z.boolean(),
+    cliente:z.boolean(),
+    veterinario:z.boolean()
 });
+
 
 export const authenticationResponseSchema = z.object({
     message:z.string(),
@@ -68,10 +72,21 @@ const UserEmailSchema = z.object({
 
 type User = z.infer<typeof userSchema>;
 
-
+export const userAndGroupSchema = z.array(z.object({
+    id:z.number(),
+    name:z.string(),
+    lastname:z.string(),
+    email:z.string().email(),
+    roles:z.array(z.object({
+      id:z.number(),
+      name:z.string()
+    }))
+}))
 
 export type UserLoginForm = Pick<User,'username' | 'password'>;
 export type RegisterForm = Omit<User,"id" | 'token'>;
 export type ConfirmToken = Pick<User,'token'>;
 export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
 export type UserEmail = z.infer<typeof UserEmailSchema>;
+export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
+export type UserUpdateSchema = Pick<User,"name" | "lastname" | "email">;
