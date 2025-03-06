@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
 import { Sun, Moon, User, Settings, LogOut, ChevronDown } from "lucide-react";
 import { UserMenuOption } from "../../types";
 import { BrandLink } from "./BrandLink";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -13,7 +13,7 @@ export const NavbarDash: React.FC<NavbarProps> = ({
   isDarkMode,
   toggleDarkMode,
 }) => {
-  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate();
   const handleLogout = () => {
     setIsUserMenuOpen(false);

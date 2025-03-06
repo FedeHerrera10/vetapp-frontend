@@ -14,7 +14,7 @@ import {
 
 import { es } from "date-fns/locale";
 import { toCamelCase } from "../../../utils/FormaterString";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CalendarProps {
@@ -23,7 +23,7 @@ interface CalendarProps {
   selectedDate: string | null;
 }
 
-const Calendar: React.FC<CalendarProps> = ({
+const Calendar: FC<CalendarProps> = ({
   availableDates,
   onSelectDate,
   selectedDate,

@@ -15,6 +15,7 @@ export const Dashboard = () => {
       <Sidebar
         isCollapsed={isCollapsed}
         toggleCollapse={() => setIsCollapsed(!isCollapsed)}
+        role={"VETERINARIO"}
       />
 
       <main

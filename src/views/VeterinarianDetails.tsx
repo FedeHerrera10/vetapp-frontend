@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { AppointmentFormData } from "@/types/index";
 import Calendar from "@/components/ui/veterinarian/Calendar";
-import AppointmentModal from "@/components/ui/veterinarian/Modal";
+import { AppointmentModal } from "@/components/ui/veterinarian/AppointmentModal";
 import { veterinarian } from "@/data/mockData";
 import { useNavigate } from "react-router-dom";
 

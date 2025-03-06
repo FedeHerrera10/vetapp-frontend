@@ -16,16 +16,12 @@ import { getMenu } from "../../types/sidebarMenu";
 interface SidebarProps {
   isCollapsed: boolean;
   toggleCollapse: () => void;
-  isMobileMenuOpen: boolean;
-  toggleMobileMenu: () => void;
   role: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export const Sidebar: FC<SidebarProps> = ({
   isCollapsed,
   toggleCollapse,
-  isMobileMenuOpen,
-  toggleMobileMenu,
   role,
 }) => {
   const getIcon = (iconName: string) => {

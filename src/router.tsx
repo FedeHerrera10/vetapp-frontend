@@ -33,8 +33,8 @@ export default function Router() {
               path="security/user/edit/:id"
               element={<EditViewUserSystem />}
             />
-            <Route element={<Veterinarian />} path="vet" />
-            <Route element={<VeterinarianDetail />} path="vet/:id" />
+            <Route element={<Veterinarian />} path="vets" />
+            <Route element={<VeterinarianDetail />} path="vets/:id" />
             <Route element={<Turnos />} path="turnos" />
           </Route>
         </Route>
