@@ -5,12 +5,12 @@ const navItemsAdmin: NavItem[] = [
 
 const navItemsUser: NavItem[] = [
 
-  { id: "vets", title: "Veterinarians", icon: "Users", href: "/vets" },
+  { id: "vets", title: "Veterinarians", icon: "Users", href: "vets" },
     {
       id: "appointments",
       title: "Appointments",
       icon: "Calendar",
-      href: "/appointments",
+      href: "appointments",
     },
   ];
 

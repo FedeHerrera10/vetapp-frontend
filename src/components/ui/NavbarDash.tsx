@@ -1,28 +1,26 @@
-import React from "react";
 import { Sun, Moon, User, Settings, LogOut, ChevronDown } from "lucide-react";
 import { UserMenuOption } from "../../types";
 import { BrandLink } from "./BrandLink";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface NavbarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
 
-
-
 export const NavbarDash: React.FC<NavbarProps> = ({
   isDarkMode,
   toggleDarkMode,
 }) => {
-  const [isUserMenuOpen, setIsUserMenuOpen] = React.useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate();
   const handleLogout = () => {
     setIsUserMenuOpen(false);
-    localStorage.removeItem('vetapp');
-    navigate('/auth/login');
+    localStorage.removeItem("vetapp");
+    navigate("/auth/login");
   };
-  
+
   const userMenuOptions: UserMenuOption[] = [
     {
       id: "profile",
@@ -45,7 +43,7 @@ export const NavbarDash: React.FC<NavbarProps> = ({
             Vet App
           </h1> */}
           <div className="hidden lg:block">
-            <BrandLink />
+            <BrandLink isDarkMode={isDarkMode} />
           </div>
         </div>
 
@@ -88,7 +86,9 @@ export const NavbarDash: React.FC<NavbarProps> = ({
                     {option.icon === "Settings" && (
                       <Settings className="h-4 w-4" />
                     )}
-                    {option.icon === "LogOut" && <LogOut className="h-4 w-4" onClick={handleLogout}/>}
+                    {option.icon === "LogOut" && (
+                      <LogOut className="h-4 w-4" onClick={handleLogout} />
+                    )}
                     <span>{option.label}</span>
                   </button>
                 ))}
