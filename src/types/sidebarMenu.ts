@@ -1,6 +1,6 @@
 import { NavItem } from "./index";
 const navItemsAdmin: NavItem[] = [
-    {id: "usuarios" ,title : "Usuarios", icon : "UserRound", href:"/app/security"},
+    {id: "usuarios" ,title : "Usuarios", icon : "UserRound", href:"security"},
   ];
 
 const navItemsUser: NavItem[] = [

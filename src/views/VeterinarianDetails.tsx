@@ -16,8 +16,6 @@ export const VeterinarianDetail = () => {
   };
 
   const handleBack = () => {
-    // In a real app, this would navigate back to the veterinarians list
-    console.log("Navigate back");
     navigate(-1);
   };
 

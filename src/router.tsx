@@ -17,7 +17,6 @@ import { RegisterViewUserSystem } from "./views/auth/RegisterViewUserSystem";
 import { EditViewUserSystem } from "./views/auth/EditViewUserSystem";
 import { ProfileView } from "./views/profile/ProfileView";
 
-
 export default function Router() {
   return (
     <BrowserRouter>
@@ -38,6 +37,7 @@ export default function Router() {
             <Route element={<Veterinarian />} path="vets" />
             <Route element={<VeterinarianDetail />} path="vets/:id" />
             <Route element={<Turnos />} path="turnos" />
+            <Route element={<ProfileView />} path="profile" />
           </Route>
         </Route>
 

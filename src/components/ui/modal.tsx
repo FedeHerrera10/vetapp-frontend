@@ -1,29 +1,41 @@
-import React, { useState } from "react";
+import React,{ useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 interface FullScreenModalProps {
+  
   isOpen: boolean;
+  onClose: () => void;
   children: React.ReactNode;
   title: string;
+  isBack: boolean;
 }
 
 
 
-const FullScreenModal: React.FC<FullScreenModalProps> = ({ isOpen, children ,title }) => {
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(isOpen);
-  
-  const handleToBackUrl = ()=>{
-    setOpen(false);
-    navigate(-1);
-  }
-  
-  if (!open) return null; // No renderizar si está cerrado
+const FullScreenModal: React.FC<FullScreenModalProps> = ({ isOpen,onClose, children ,title ,isBack }) => {
+const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(isOpen);
 
+  useEffect(() => {
+    setIsVisible(isOpen);
+  }, [isOpen]);
+
+  const handleToBackUrl = () => {
+    setIsVisible(false);
+    onClose();
+    if(isBack){
+      navigate(-1);
+    }
+  };
+
+  if (!isVisible) return null;
+
+  
+if (!open) return null; // No renderizar si está cerrado
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50 overflow-auto "
-      onClick={() => handleToBackUrl} // Cierra al hacer clic fuera
+      className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[999] overflow-auto h-screen w-full"
+      onClick={() => handleToBackUrl()} // Cierra al hacer clic fuera
     >
       {/* Contenedor del Modal */}
       <div
