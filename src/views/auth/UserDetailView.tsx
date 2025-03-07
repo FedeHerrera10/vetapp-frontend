@@ -24,7 +24,7 @@ export const UserDetailView = () => {
 
   if (data)
     return (
-      <FullScreenModal isOpen={true} title="Informacion del usuario">
+      <FullScreenModal isOpen={true} title="Informacion del usuario" onClose={() => {}} isBack={true}>
         <div>
           <p className="text-md  capitalize">
             <span className="font-semibold">Apellido: </span>

@@ -1,12 +1,11 @@
 import React from "react";
-import Modal from "react-modal";
 import { useForm } from "react-hook-form";
-import { X } from "lucide-react";
 import { AppointmentFormData } from "@/types/index";
 import { format, parseISO } from "date-fns";
+import FullScreenModal from "../modal";
 
 // Set the app element for accessibility
-Modal.setAppElement("#root");
+// Modal.setAppElement("#root");
 
 interface AppointmentModalProps {
   isOpen: boolean;
@@ -43,34 +42,11 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   const times = ["09:00 AM", "10:00 AM", "11:00 AM", "01:00 PM", "02:00 PM"];
   const pets = ["Perro", "Gato", "Loro"];
   const services = ["Consulta", "Vacunación", "Revisión"];
-
+  
   return (
-    <Modal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      className="max-w-lg w-full mx-auto my-8 bg-white rounded-lg shadow-xl outline-none overflow-auto max-h-[90vh] sm:max-h-[80vh]"
-      overlayClassName="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50"
-      style={{
-        content: {
-          maxWidth: "90%",
-          width: "100%",
-        },
-      }}
-    >
-      <div className="sticky top-0 bg-white z-10 px-6 py-4 border-b border-gray-200">
-        <div className="flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-800">
-            Request Appointment
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
-            aria-label="Close modal"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-      </div>
+    
+    <FullScreenModal isOpen={isOpen} title="Request Appointment" isBack={false} onClose={onClose}>
+     
 
       <div className="px-6 py-4">
         <div className="mb-6 bg-indigo-50 p-4 rounded-lg">
@@ -160,13 +136,6 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
           <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 mt-6 sticky bottom-0 bg-white py-4 border-t border-gray-200">
             <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors w-full sm:w-auto"
-            >
-              Cancel
-            </button>
-            <button
               type="submit"
               disabled={!selectedDate}
               className={`px-4 py-2 rounded-md text-sm font-medium text-white w-full sm:w-auto ${
@@ -180,6 +149,6 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
           </div>
         </form>
       </div>
-    </Modal>
+    </FullScreenModal>
   );
 };
