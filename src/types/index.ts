@@ -70,8 +70,6 @@ const UserEmailSchema = z.object({
     email: z.string().email(),
 });
 
-type User = z.infer<typeof userSchema>;
-
 export const userAndGroupSchema = z.array(z.object({
     id:z.number(),
     name:z.string(),
@@ -83,10 +81,19 @@ export const userAndGroupSchema = z.array(z.object({
     }))
 }))
 
+const updateUserSchema =z.object({
+  name:z.string(),
+  lastname:z.string(),
+  email:z.string().email(),
+  enabled:z.boolean()
+})
+
+
+type User = z.infer<typeof userSchema>;
 export type UserLoginForm = Pick<User,'username' | 'password'>;
 export type RegisterForm = Omit<User,"id" | 'token'>;
 export type ConfirmToken = Pick<User,'token'>;
 export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
 export type UserEmail = z.infer<typeof UserEmailSchema>;
 export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
-export type UserUpdateSchema = Pick<User,"name" | "lastname" | "email">;
+export type UserUpdateSchema = z.infer<typeof updateUserSchema>;

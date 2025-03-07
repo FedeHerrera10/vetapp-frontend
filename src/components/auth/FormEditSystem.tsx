@@ -102,7 +102,10 @@ const navigate = useNavigate();
         />
         <MessageError message={errors?.email?.message?.toString() || null}/>
       </div>
-        
+      <div className="flex items-center mb-4">
+    <input id="default-checkbox" type="checkbox" value="" className="w-4 h-4 text-indigo-900 bg-gray-100 border-gray-300 rounded-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"  {...register("enabled")}/>
+    <label htmlFor="default-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Habilitar</label>
+</div>
       {
         status == 'pending' ? (<div className="w-full flex justify-center items-center  md:col-span-2"><Spinner/></div>
           

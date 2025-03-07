@@ -26,7 +26,7 @@ export const NavbarDash: React.FC<NavbarProps> = ({
       id: "profile",
       label: "Profile",
       icon: "User",
-      action: () => console.log("Profile clicked"),
+      action: () => navigate('/app/profile'),
     },
     {
       id: "logout",
