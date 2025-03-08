@@ -55,8 +55,8 @@ export const Sidebar: FC<SidebarProps> = ({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-10 
-          ${isCollapsed ? "w-16" : "w-64"} 
+        className={`fixed top-0 left-0 h-[40vh] bg-white  dark:bg-gray-800 border-r border-gray-200 border-b-2 dark:border-gray-700 z-10 
+          ${isCollapsed ? "hidden md:block md:w-20 md:h-full" : "w-full md:w-64 md:h-full"} 
           translate-x-0 transition-all duration-100 `}
       >
         <div className="flex flex-col h-full pt-16">
@@ -78,11 +78,11 @@ export const Sidebar: FC<SidebarProps> = ({
               <Link
                 key={item.id}
                 to={`/app/${item.href}`}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg mb-1
-                  text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/20
-                  hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors`}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg mb-1 font-medium md:font-normal
+                  text-gray-700 dark:text-gray-300 hover:bg-indigo-500 hover:text-white  dark:hover:bg-indigo-900/20
+                   dark:hover:text-indigo-400 transition-colors`}
               >
-                <span className="flex-shrink-0">{getIcon(item.icon)}</span>
+                <span className=" flex-shrink-0">{getIcon(item.icon)}</span>
                 {!isCollapsed && <span>{item.title}</span>}
               </Link>
             ))}

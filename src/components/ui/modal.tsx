@@ -34,12 +34,12 @@ const navigate = useNavigate();
 if (!open) return null; // No renderizar si está cerrado
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[999] overflow-auto h-screen w-full"
+      className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[90] overflow-auto h-screen w-full"
       onClick={() => handleToBackUrl()} // Cierra al hacer clic fuera
     >
       {/* Contenedor del Modal */}
       <div
-        className="bg-white w-full max-w-sm lg:max-w-xl  md:w-3/4 h-auto max-h-[90vh]  rounded-lg shadow-lg flex flex-col p-6 "
+        className="bg-white w-full max-w-md lg:max-w-xl  md:w-3/4 h-auto max-h-[90vh]  rounded-lg shadow-lg flex flex-col p-6 "
         onClick={(e) => e.stopPropagation()} // Evita cerrar al hacer clic dentro
       >
         {/* Header */}
