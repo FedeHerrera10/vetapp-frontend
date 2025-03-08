@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
 import { getAllUser } from '../../api/AuthAPI';
 import { Link } from 'react-router-dom';
-
-const ROLE_VETERINARY ="veterinary";
-const ROLE_ADMIN ="admin";
+import { Roles } from '@/types/index';
 
 const columns = [
   {
@@ -29,9 +27,9 @@ const columns = [
           <div key={role.id} className='mr-2'>
             <span 
             className=
-            {role.name ==="ROLE_ADMIN" ? "bg-orange-200 text-orange-800 p-1 rounded-lg text-sm text-[10px]" : 
-              role.name ==='ROLE_VETERINARIO' ? "bg-violet-200 text-violet-800 p-1 rounded-lg text-sm text-[10px]" :
-              role.name ==='ROLE_CLIENTE' ? "bg-green-200 text-green-800 p-1 rounded-lg text-sm text-[10px]" : ""}
+            {role.name ==="ROLE_ADMIN" ? "bg-orange-200 text-orange-800 p-1 rounded-lg text-[11px]" : 
+              role.name ==='ROLE_VETERINARIO' ? "bg-violet-200 text-violet-800 p-1 rounded-lg text-[11px]" :
+              role.name ==='ROLE_CLIENTE' ? "bg-green-200 text-green-800 p-1 rounded-lg text-[11px]" : ""}
             >
               {role.name.replace("ROLE_", "")}</span>
           </div>
@@ -60,7 +58,7 @@ export const DashboardSecurity = () => {
        queryFn : ()=> getAllUser(),
        retry:false
    })  
-
+   
    const [filterText, setFilterText] = useState(''); // Estado para el texto del filtro
    const [filteredData, setFilteredData] = useState([]); // Estado para los datos filtrados
  
@@ -81,16 +79,17 @@ export const DashboardSecurity = () => {
 
    if(error)return (
      <>
-     <h2 className=' ml-2 '>No se pudo recuperar los usuarios</h2>
+     <h2 className=' ml-2 text center mt-2'>upps!! No se pudo recuperar los usuarios</h2>
      </>
    )
+   
   
   
   if(data)
     return (
     <div className="p-2 md:p-6">
      
-      <h1 className="text-2xl font-bold mb-4">Usuarios del Sistema</h1>
+      <h1 className="text-2xl font-bold mb-4 dark:text-slate-100">Usuarios del Sistema</h1>
       <div className='w-full flex flex-col gap-1 my-3 items-center md:justify-between md:flex-row  md:gap-4 '>
        <div className='w-full md:w-1/2 mb-2 md:mb-0'>
        <input
@@ -103,8 +102,8 @@ export const DashboardSecurity = () => {
         />
        </div>
        <div className='w-full flex gap-1 md:w-1/2 md:justify-end'>
-       <button className='flex items-center gap-1 font-medium p-2 md:p-2 rounded-md bg-green-600 text-slate-100 hover:bg-green-700 hover:transition-colors text-sm '> <Stethoscope size={20}/><Link to={`/app/security/add-user/${ROLE_VETERINARY}`} className=''>Alta Veterinario </Link></button>
-       <button className='flex items-center gap-1 font-medium p-2 md:p-2 rounded-md bg-violet-600 text-slate-100 hover:bg-violet-700 hover:transition-colors text-sm'><UserRoundCog size={20}/><Link to={`/app/security/add-user/${ROLE_ADMIN}`} className=''> Alta Usuario Sistema</Link></button>
+       <button className='flex items-center gap-1 font-medium p-2 md:p-2 rounded-md bg-green-600 text-slate-100 hover:bg-green-700 hover:transition-colors text-sm '> <Stethoscope size={20}/><Link to={`/app/security/add-user/${Roles.ROLE_VETERINARIO}`} className=''>Alta Veterinario </Link></button>
+       <button className='flex items-center gap-1 font-medium p-2 md:p-2 rounded-md bg-violet-600 text-slate-100 hover:bg-violet-700 hover:transition-colors text-sm'><UserRoundCog size={20}/><Link to={`/app/security/add-user/${Roles.ROLE_ADMIN}`} className=''> Alta Usuario Sistema</Link></button>
        </div>
       </div>     
       <DataTable
@@ -113,7 +112,7 @@ export const DashboardSecurity = () => {
         pagination
         highlightOnHover
         responsive
-        className=" border rounded-lg shadow-sm w-full"
+        className="border rounded-lg shadow-sm w-full bg-slate-400"
         
       />
     </div>

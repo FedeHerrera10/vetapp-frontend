@@ -134,7 +134,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 mt-6 sticky bottom-0 bg-white py-4 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 mt-6  bg-white py-4 border-t border-gray-200">
             <button
               type="submit"
               disabled={!selectedDate}

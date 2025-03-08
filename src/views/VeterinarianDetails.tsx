@@ -96,7 +96,7 @@ export const VeterinarianDetail = () => {
         </p>
 
         <Calendar
-          availableDates={veterinarian.availability}
+          availableDates={veterinarian.availability || []}
           onSelectDate={handleDateSelect}
           selectedDate={selectedDate}
         />

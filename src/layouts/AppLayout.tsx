@@ -52,7 +52,7 @@ export const AppLayout = () => {
 
       <main
         className={`pt-16 min-h-screen transition-all ease-in-out duration-300
-          ${isCollapsed ? "pl-16" : "lg:pl-64 "}`}
+          ${isCollapsed ? "md:pl-16" : "lg:pl-64 "}`}
       >
         <Outlet />
       </main>

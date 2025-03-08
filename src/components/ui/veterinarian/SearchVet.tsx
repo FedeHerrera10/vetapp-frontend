@@ -28,7 +28,7 @@ export const SearchVet: FC<SeachType> = ({
         <input
           type="text"
           placeholder="Buscar por nombre o especialidad..."
-          className="pl-10 pr-4 py-2 w-full md:w-96 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors dark:border-gray-600 dark:bg-gray-600 dark:text-white"
+          className="pl-10 pr-4 py-2 w-full md:w-96 border rounded-lg font-medium bg-gray-100  border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

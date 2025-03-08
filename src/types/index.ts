@@ -88,6 +88,11 @@ const updateUserSchema =z.object({
   enabled:z.boolean()
 })
 
+export  enum Roles{
+  ROLE_ADMIN="admin",
+  ROLE_CLIENTE="cliente",
+  ROLE_VETERINARIO="veterinary"
+}
 
 type User = z.infer<typeof userSchema>;
 export type UserLoginForm = Pick<User,'username' | 'password'>;
