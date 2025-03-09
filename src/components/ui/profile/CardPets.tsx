@@ -4,13 +4,13 @@ export const CardPets = () => {
   return (
     
 <div className="bg-gray-50 rounded-xl p-6 mb-6 dark:bg-gray-700 ">
-    <div className="flex items-center gap-6">
+    <div className="flex items-center gap-6 flex-col sm:flex-row">
     <img 
       src="https://images.unsplash.com/photo-1633722715463-d30f4f325e24?auto=format&fit=crop&q=80&w=400"
       alt="Max"
       className="w-20 h-20 rounded-full border-4 border-white shadow-lg object-cover"
     />
-    <div className="flex-1">
+    <div className="flex-1 flex-col items-center sm:flex-row">
       <div className="flex items-center gap-3 mb-1">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-slate-50">Max</h3>
         <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm">Active</span>

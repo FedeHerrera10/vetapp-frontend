@@ -3,14 +3,16 @@ import FullScreenModal from "../modal";
 import { useMutation } from "@tanstack/react-query";
 import { uploadImage } from "@/api/AuthAPI";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Spinner } from "../Spinner";
 import { MESSAGE_IMAGE_FORMAT, MESSAGE_IMAGE_NOT_SELECT, MESSAGE_IMAGE_SIZE, MESSAGE_IMAGE_UPLOAD_SUCCESS } from "../../../messages";
 import { UploadImageProfileSchema } from "../../../types/index";
 
 export const UploadImageProfile = () => 
     {
-        {
+        
+            const params  = useParams();
+            const idUser = Number(params.id || 0);
             const [image, setImage] = useState("");
             const [base64Image, setBase64Image] = useState("");
             const [error, setError] = useState("");
@@ -66,7 +68,7 @@ export const UploadImageProfile = () =>
                 setError(MESSAGE_IMAGE_NOT_SELECT);
                 return;
               }
-              mutate({ userId:3, imageBase64: base64Image } as UploadImageProfileSchema);
+              mutate({ userId:idUser, imageBase64: base64Image } as UploadImageProfileSchema);
               
             };
           
@@ -105,4 +107,4 @@ export const UploadImageProfile = () =>
               </FullScreenModal>
             );
           };
-          }
+          
