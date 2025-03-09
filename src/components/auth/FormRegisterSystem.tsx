@@ -73,10 +73,10 @@ export const FormRegisterSystem = () => {
       className="mx-auto max-w-xs flex flex-col place-content-center px-2 gap-3"
     >
       <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="name">Nombre</label>
+      <label className="text-sm font-medium text-slate-700 ml-1 dark:text-slate-200" htmlFor="name">Nombre</label>
         <input
           id="name"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white dark:bg-gray-600 dark:border-gray-600 dark:placeholder-slate-200 dark:text-gray-100"
           type="text"
           placeholder="Nombre"
           {...register("name", {
@@ -91,10 +91,10 @@ export const FormRegisterSystem = () => {
         <MessageError message={errors?.name?.message?.toString() || null}/>
       </div>
       <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="lastname">Apellido</label>
+      <label className="text-sm font-medium text-slate-700 ml-1 dark:text-slate-200" htmlFor="lastname">Apellido</label>
         <input
           id="lastname"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+          className="w-full  px-8 py-3 rounded-lg font-medi um bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white dark:bg-gray-600 dark:border-gray-600 dark:placeholder-slate-200 dark:text-gray-100"
           type="text"
           placeholder="Apellido"
           {...register("lastname", {
@@ -109,10 +109,10 @@ export const FormRegisterSystem = () => {
         <MessageError message={errors?.lastname?.message?.toString() || null}/>
       </div>
       <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="username">Usuario</label>
+      <label className="text-sm font-medium text-slate-700 ml-1 dark:text-slate-200" htmlFor="username">Usuario</label>
         <input
           id="username"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100  border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white dark:bg-gray-600 dark:border-gray-600 dark:placeholder-slate-200 dark:text-gray-100"
           type="text"
           placeholder="Usuario"
           {...register("username", {
@@ -128,10 +128,10 @@ export const FormRegisterSystem = () => {
       </div>
       
       <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="email">Correo Electronico</label>
+      <label className="text-sm font-medium text-slate-700 ml-1 dark:text-slate-200" htmlFor="email">Correo Electronico</label>
         <input
           id="email"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100  border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white dark:bg-gray-600 dark:border-gray-600 dark:placeholder-slate-200 dark:text-gray-100"
           type="email"
           placeholder="Correo Electronico"
           {...register("email", {

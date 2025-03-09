@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { FormEditSystem } from "../../components/auth/FormEditSystem";
 import { useQuery } from "@tanstack/react-query";
 import { getUserById } from "../../api/AuthAPI";
@@ -8,6 +8,10 @@ import FullScreenModal from "../../components/ui/modal";
 export const EditViewUserSystem = () => {
   const params = useParams();
   const IdUser = Number(params.id);
+  const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const modalTask =  queryParams.get('backUrl');
+    const isBackModal = modalTask ? true : false;
 
   const { data, isLoading } = useQuery({
     queryKey: ["user", IdUser],
@@ -24,7 +28,7 @@ export const EditViewUserSystem = () => {
     );
   if (data)
     return (
-      <FullScreenModal isOpen={true} onClose={() => {}} title="Edicion de usuario" isBack={true}>
+      <FullScreenModal isOpen={true} onClose={() => {}} title="Edicion de usuario" isBack={isBackModal}>
         <FormEditSystem data={data} iduser={IdUser} />
       </FullScreenModal>
     );

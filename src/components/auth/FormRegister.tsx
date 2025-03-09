@@ -28,7 +28,8 @@ export const FormRegister = () => {
     passwordRepeat: "",
     admin: false,
     cliente : ROLE_CLIENT,
-    veterinario : false
+    veterinario : false,
+    imageProfile: ""
   };
 
 

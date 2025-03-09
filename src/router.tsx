@@ -16,6 +16,7 @@ import { UserDetailView } from "./views/auth/UserDetailView";
 import { RegisterViewUserSystem } from "./views/auth/RegisterViewUserSystem";
 import { EditViewUserSystem } from "./views/auth/EditViewUserSystem";
 import { ProfileView } from "./views/profile/ProfileView";
+import { UploadImageProfile } from "./components/ui/profile/UploadImageProfile";
 
 export default function Router() {
   return (
@@ -34,10 +35,12 @@ export default function Router() {
               path="security/user/edit/:id"
               element={<EditViewUserSystem />}
             />
+            <Route element={<UploadImageProfile />} path="profile/:id/upload-image" />
             <Route element={<Veterinarian />} path="vets" />
             <Route element={<VeterinarianDetail />} path="vets/:id" />
             <Route element={<Turnos />} path="turnos" />
             <Route element={<ProfileView />} path="profile" />
+
           </Route>
         </Route>
 

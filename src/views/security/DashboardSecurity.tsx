@@ -45,7 +45,7 @@ const columns = [
     cell: (props) => (
       <div className='flex items-center '>
         <Link to={`/app/security/user/view/${props.id}`}><Eye size={22} className='text-indigo-800 hover:text-indigo-700'/> </Link>
-        <Link to={`/app/security/user/edit/${props.id}`} className='ml-2'><Edit size={18} className='text-indigo-800 hover:text-indigo-700'/> </Link>
+        <Link to={`/app/security/user/edit/${props.id}?backUrl=1`} className='ml-2'><Edit size={18} className='text-indigo-800 hover:text-indigo-700'/> </Link>
       </div>
     )
   },
