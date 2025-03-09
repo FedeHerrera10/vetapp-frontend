@@ -39,15 +39,17 @@ if (!open) return null; // No renderizar si está cerrado
     >
       {/* Contenedor del Modal */}
       <div
-        className="bg-white w-full max-w-md lg:max-w-xl  md:w-3/4 h-auto max-h-[90vh]  rounded-lg shadow-lg flex flex-col p-6 "
+        className="bg-white w-full max-w-md lg:max-w-xl  md:w-3/4 h-auto max-h-[90vh]  rounded-lg shadow-lg flex flex-col p-6 
+        dark:bg-gray-800 dark:text-gray-100
+        "
         onClick={(e) => e.stopPropagation()} // Evita cerrar al hacer clic dentro
       >
         {/* Header */}
         <div className="flex justify-between items-center border-b pb-3">
-          <h2 className="text-2xl font-semibold text-gray-700">{title}</h2>
+          <h2 className="text-2xl font-semibold text-gray-700 dark:text-slate-200">{title}</h2>
           <button
             onClick={() => handleToBackUrl()}
-            className="text-gray-500 hover:text-gray-700 text-xl"
+            className="text-gray-500 hover:text-gray-700 text-xl dark:text-slate-200"
           >
             ✕
           </button>

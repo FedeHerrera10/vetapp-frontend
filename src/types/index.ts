@@ -57,7 +57,8 @@ const userSchema = z.object({
     token: z.string(),
     admin:z.boolean(),
     cliente:z.boolean(),
-    veterinario:z.boolean()
+    veterinario:z.boolean(),
+    imageProfile:z.string()
 });
 
 
@@ -88,10 +89,21 @@ const updateUserSchema =z.object({
   enabled:z.boolean()
 })
 
+const uploadImageProfileSchema =z.object({
+  userId:z.number(),
+  imageBase64:z.string()
+})
+
 export  enum Roles{
   ROLE_ADMIN="admin",
   ROLE_CLIENTE="cliente",
   ROLE_VETERINARIO="veterinary"
+}
+
+export enum RolesBackend{
+  ROLE_ADMIN="ROLE_ADMIN",
+  ROLE_CLIENTE="ROLE_CLIENTE",
+  ROLE_VETERINARIO="ROLE_VETERINARIO"
 }
 
 type User = z.infer<typeof userSchema>;
@@ -102,3 +114,4 @@ export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
 export type UserEmail = z.infer<typeof UserEmailSchema>;
 export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
 export type UserUpdateSchema = z.infer<typeof updateUserSchema>;
+export type UploadImageProfileSchema = z.infer<typeof uploadImageProfileSchema>

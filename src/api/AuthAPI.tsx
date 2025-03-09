@@ -4,6 +4,7 @@ import {
   authenticationResponseSchema,
   ConfirmToken,
   RegisterForm,
+  UploadImageProfileSchema,
   userAndGroupSchema,
   UserEmail,
   UserLoginForm,
@@ -127,6 +128,18 @@ export async function editUser({formData ,id }: {formData: UserUpdateSchema ,id:
     const { data } = await api.put(url, formData);
     return data;
   } catch (error) {
+    handleAPIError(error);
+  }
+}
+
+export async function uploadImage(formData: UploadImageProfileSchema) {
+  try {
+    console.log(formData)
+    const url = `${BASE_URL}/api/images/upload`;
+    const { data } = await api.post<string>(url, formData);
+    return data;
+  } catch (error) {
+    console.log(error)
     handleAPIError(error);
   }
 }
