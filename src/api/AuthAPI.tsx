@@ -16,7 +16,6 @@ const BASE_URL = "http://localhost:8080";
 export async function authenticateUser(formData: UserLoginForm) {
   try {
     const url = `${BASE_URL}/login`;
-    console.log(url);
     const { data } = await api.post(url, formData);
     const response = authenticationResponseSchema.safeParse(data);
     if (response.success) {

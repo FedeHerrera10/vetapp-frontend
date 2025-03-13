@@ -106,6 +106,18 @@ export enum RolesBackend{
   ROLE_VETERINARIO="ROLE_VETERINARIO"
 }
 
+const petSchema = z.object({
+  id:z.number(),
+  nombre:z.string(),
+  especie:z.string(),
+  raza:z.string(),
+  edad:z.number(),
+  caracteristicas : z.string(),
+  peso : z.number(),
+  color:z.string(),
+  imagePet : z.string(),
+})
+
 type User = z.infer<typeof userSchema>;
 export type UserLoginForm = Pick<User,'username' | 'password'>;
 export type RegisterForm = Omit<User,"id" | 'token'>;
@@ -115,3 +127,5 @@ export type UserEmail = z.infer<typeof UserEmailSchema>;
 export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
 export type UserUpdateSchema = z.infer<typeof updateUserSchema>;
 export type UploadImageProfileSchema = z.infer<typeof uploadImageProfileSchema>
+export type PetSchema = z.infer<typeof petSchema>
+export type PetRegisterSchema = Omit<PetSchema, 'id'>

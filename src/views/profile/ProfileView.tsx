@@ -3,14 +3,14 @@ import { getUser } from "../../api/AuthAPI";
 import { Spinner } from "../../components/ui/Spinner";
 import { Ban, Pencil, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ListPets } from "@/components/ui/profile/ListPets";
-import { RolesBackend } from "@/types/index";
 
 export const ProfileView = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: () => getUser(),
     retry: 1,
+    // staleTime: Infinity, // No se vuelve a refetch automáticamente
+    // gcTime: 8 * 60 * 1000, // Garbage Collection después de 8 minutos
     refetchOnWindowFocus: false,
   });
 
@@ -20,7 +20,6 @@ export const ProfileView = () => {
         <Spinner />
       </div>
     );
-    console.log(data.imageProfile)
   if (data)
     return (
       <div className=" w-full bg-slate-100 rounded-2xl shadow-xl overflow-hidden dark:bg-gray-800 dark:text-slate-50">
@@ -64,7 +63,7 @@ export const ProfileView = () => {
             </div>
           </div>
         </div>
-        {data.roles[0].name === RolesBackend.ROLE_CLIENTE && <ListPets pets={[]} />}
+        
       </div>
     );
 };
