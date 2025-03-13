@@ -28,7 +28,7 @@ export const EditViewUserSystem = () => {
     );
   if (data)
     return (
-      <FullScreenModal isOpen={true} onClose={() => {}} title="Edicion de usuario" isBack={isBackModal}>
+      <FullScreenModal isOpen={true} onClose={() => {}} title="Edicion de Usuario" isBack={isBackModal} >
         <FormEditSystem data={data} iduser={IdUser} />
       </FullScreenModal>
     );

@@ -8,6 +8,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
+  PawPrint,
 } from "lucide-react";
 import { NavItem } from "../../types";
 import { Link } from "react-router-dom";
@@ -36,6 +37,8 @@ export const Sidebar: FC<SidebarProps> = ({
         return <UserRound className="h-5 w-5" />;
       case "BarChart3":
         return <BarChart3 className="h-5 w-5" />;
+      case "PawPrint":
+        return <PawPrint className="h-5 w-5" />;
 
       default:
         return null;
@@ -55,8 +58,8 @@ export const Sidebar: FC<SidebarProps> = ({
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-[40vh] bg-white  dark:bg-gray-800 border-r border-gray-200 border-b-2 dark:border-gray-700 z-10 
-          ${isCollapsed ? "hidden md:block md:w-20 md:h-full" : "w-full md:w-64 md:h-full"} 
+        className={`fixed top-0 left-0 h-full w-16 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 z-10 
+          ${isCollapsed ? "w-16" : "w-64"} 
           translate-x-0 transition-all duration-100 `}
       >
         <div className="flex flex-col h-full pt-16">

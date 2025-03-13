@@ -1,3 +1,4 @@
+import { X } from "lucide-react";
 import React,{ useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -34,29 +35,28 @@ const navigate = useNavigate();
 if (!open) return null; // No renderizar si está cerrado
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-[90] overflow-auto h-screen w-full"
+      className="fixed inset-0 dark:bg-gray-900/95 flex justify-center items-center z-[90] overflow-hidden h-screen w-full bg-gray-600/80 "
       onClick={() => handleToBackUrl()} // Cierra al hacer clic fuera
     >
       {/* Contenedor del Modal */}
       <div
-        className="bg-white w-full max-w-md lg:max-w-xl  md:w-3/4 h-auto max-h-[90vh]  rounded-lg shadow-lg flex flex-col p-6 
-        dark:bg-gray-800 dark:text-gray-100
-        "
+        className="bg-white w-full max-w-sm   md:w-3/4 h-auto max-h-[90vh]  rounded-lg shadow-lg flex flex-col 
+        dark:bg-gray-800 dark:text-gray-100 sm:max-w-[525px] md:max-w-[650px]"
         onClick={(e) => e.stopPropagation()} // Evita cerrar al hacer clic dentro
       >
         {/* Header */}
-        <div className="flex justify-between items-center border-b pb-3">
-          <h2 className="text-2xl font-semibold text-gray-700 dark:text-slate-200">{title}</h2>
+        <div className="flex justify-between items-center  p-6 bg-gray-900 rounded-tl-md rounded-tr-md dark:bg-slate-600">
+          <h2 className="text-2xl font-medium  text-slate-200 ">{title}</h2>
           <button
             onClick={() => handleToBackUrl()}
-            className="text-gray-500 hover:text-gray-700 text-xl dark:text-slate-200"
+            className="text-slate-200 hover:text-slate-400 text-xl dark:text-slate-200 dark:hover:text-slate-400"
           >
-            ✕
+            <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Contenido Dinámico */}
-        <div className="flex-1 overflow-auto p-4">{children}</div>
+        <div className="flex-1 overflow-y-auto scrollbar-hide p-4">{children}</div>
       </div>
     </div>
   );

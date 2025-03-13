@@ -15,10 +15,12 @@ export const NavbarDash: React.FC<NavbarProps> = ({
 }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate();
+  
+  
   const handleLogout = () => {
     setIsUserMenuOpen(false);
     localStorage.removeItem("vetapp");
-    navigate("/auth/login");
+    navigate("/auth/login", { replace: true });
   };
 
   const userMenuOptions: UserMenuOption[] = [

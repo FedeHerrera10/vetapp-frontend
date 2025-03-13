@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Clase personalizada para ocultar la barra de scroll */
+.scrollbar-hide {
+    @apply overflow-auto; /* Permite el desplazamiento */
+    scrollbar-width: none; /* Oculta la barra en Firefox */
+    -ms-overflow-style: none; /* Oculta la barra en IE y Edge */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Oculta la barra en Chrome, Safari y Opera */
+  }
+
+  .custom-input{
+    @apply w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white dark:bg-gray-600 dark:border-gray-600 dark:placeholder-slate-200 dark:text-gray-100
+  }
+
+  .custom-buttom{
+    @apply w-full sm:self-end flex justify-center items-center sm:w-36 p-2 mt-4  tracking-wide font-semibold bg-indigo-500 text-gray-100   md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out focus:outline-none dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:text-gray-100
+  }
