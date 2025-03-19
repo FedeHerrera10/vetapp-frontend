@@ -8,6 +8,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { MESSAGE_EMAIL_IS_REQUIRED, MESSAGE_LASTNAME_IS_REQUIRED, MESSAGE_LASTNAME_MAX_LENGTH, MESSAGE_LASTNAME_MIN_LENGTH, MESSAGE_NAME_IS_REQUIRED, MESSAGE_NAME_MAX_LENGTH, MESSAGE_NAME_MIN_LENGTH, MESSAGE_USER_REGISTERED, MESSAGE_USERNAME_IS_REQUIRED } from "../../messages";
 import { Spinner } from "../../components/ui/Spinner";
 import { generarPassword } from "../../utils/GeneratePassword";
+import { UserPlus } from "lucide-react";
 
 
 export const FormRegisterSystem = () => {
@@ -35,7 +36,8 @@ export const FormRegisterSystem = () => {
     passwordRepeat: passwordGenerate,
     admin: ROLE_ADMIN,
     cliente : false,
-    veterinario : ROLE_VETERINARY
+    veterinario : ROLE_VETERINARY,
+    imageProfile: "",
   };
 
   const navigate = useNavigate();
@@ -70,13 +72,14 @@ export const FormRegisterSystem = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto max-w-xs flex flex-col place-content-center px-2 gap-3"
+      className="mx-auto flex flex-col place-content-center  px-2 gap-3"
     >
-      <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="name">Nombre</label>
+      <div className="mb-3 flex flex-col sm:flex-row gap-3 justify-between  ">
+      <div className="w-full sm:w-1/2">
+      <label className="text-sm font-medium text-slate-700  dark:text-slate-200" htmlFor="name">Nombre</label>
         <input
           id="name"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="custom-input"
           type="text"
           placeholder="Nombre"
           {...register("name", {
@@ -90,11 +93,11 @@ export const FormRegisterSystem = () => {
         />
         <MessageError message={errors?.name?.message?.toString() || null}/>
       </div>
-      <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="lastname">Apellido</label>
+      <div className="w-full sm:w-1/2">
+      <label className="text-sm font-medium text-slate-700  dark:text-slate-200" htmlFor="lastname">Apellido</label>
         <input
           id="lastname"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white "
+          className="custom-input"
           type="text"
           placeholder="Apellido"
           {...register("lastname", {
@@ -108,11 +111,16 @@ export const FormRegisterSystem = () => {
         />
         <MessageError message={errors?.lastname?.message?.toString() || null}/>
       </div>
-      <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="username">Usuario</label>
+      </div>
+
+
+      
+     <div className="mb-3 flex flex-col sm:flex-row gap-3 justify-between  ">
+     <div className="w-full sm:w-1/2">
+      <label className="text-sm font-medium text-slate-700  dark:text-slate-200" htmlFor="username">Usuario</label>
         <input
           id="username"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="custom-input"
           type="text"
           placeholder="Usuario"
           {...register("username", {
@@ -127,11 +135,11 @@ export const FormRegisterSystem = () => {
       <MessageError message={errors?.username?.message?.toString() || null}/>
       </div>
       
-      <div>
-      <label className="text-sm font-medium text-slate-700 ml-1" htmlFor="email">Correo Electronico</label>
+      <div className="w-full sm:w-1/2">
+      <label className="text-sm font-medium text-slate-700  dark:text-slate-200" htmlFor="email">Correo Electronico</label>
         <input
           id="email"
-          className="w-full  px-8 py-3 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+          className="custom-input"
           type="email"
           placeholder="Correo Electronico"
           {...register("email", {
@@ -143,27 +151,17 @@ export const FormRegisterSystem = () => {
         />
         <MessageError message={errors?.email?.message?.toString() || null}/>
       </div>
+     </div>
         
       {
         status == 'pending' ? (<div className="w-full flex justify-center items-center  md:col-span-2"><Spinner/></div>
           
         ) :
         (
-          <button className="max-h-12 mt-4 py-3 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full  md:col-span-2 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none">
-        <svg
-          className="w-6 h-6 -ml-2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-          <circle cx="8.5" cy="7" r="4" />
-          <path d="M20 8v6M23 11h-6" />
-        </svg>
-        <span className="ml-3">Crear Usuario</span>
-      </button>
+          <button className="custom-buttom">
+            <UserPlus className="size-6 mx-2 inline-block" />
+            Registrar
+          </button>
         )
       }
     </form>

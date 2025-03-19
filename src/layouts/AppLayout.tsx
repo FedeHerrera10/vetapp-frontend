@@ -8,7 +8,7 @@ import { NavbarDash } from "@/components/ui/NavbarDash";
 import { Sidebar } from "@/components/ui/Sidebar";
 
 export const AppLayout = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const { isDarkMode, toggleTheme } = useTheme();
   useEffect(() => {
     if (isDarkMode) {
@@ -51,7 +51,7 @@ export const AppLayout = () => {
         />
 
         <main
-          className={`pt-16 min-h-screen transition-all ease-in-out duration-300
+          className={`pt-16 pl-16 min-h-screen transition-all ease-in-out duration-300
           ${isCollapsed ? "md:pl-16" : "lg:pl-64 "}`}
         >
           <Outlet />

@@ -4,6 +4,7 @@ import {
   authenticationResponseSchema,
   ConfirmToken,
   RegisterForm,
+  UploadImageProfileSchema,
   userAndGroupSchema,
   UserEmail,
   UserLoginForm,
@@ -16,7 +17,6 @@ const BASE_URL = import.meta.env.VITE_URL_BASE;
 export async function authenticateUser(formData: UserLoginForm) {
   try {
     const url = `${BASE_URL}/login`;
-    console.log(url);
     const { data } = await api.post(url, formData);
     const response = authenticationResponseSchema.safeParse(data);
     if (response.success) {
@@ -91,14 +91,7 @@ export async function newCode(formData: UserEmail) {
 
 export async function getUser() {
   try {
-    const token = localStorage.getItem("vetapp");
-    if (!token) {
-      throw new Error("No token found");
-    }
-    const decodedToken: any = jwtDecode(token);
-    const username = decodedToken.username;
-
-    const url = `${BASE_URL}/api/user/name/${username}`;
+    const url = `${BASE_URL}/api/user/`;
     const { data } = await api.get(url);
     return data;
   } catch (error) {
@@ -140,6 +133,18 @@ export async function editUser({
     const { data } = await api.put(url, formData);
     return data;
   } catch (error) {
+    handleAPIError(error);
+  }
+}
+
+export async function uploadImage(formData: UploadImageProfileSchema) {
+  try {
+    console.log(formData);
+    const url = `${BASE_URL}/api/images/upload`;
+    const { data } = await api.post<string>(url, formData);
+    return data;
+  } catch (error) {
+    console.log(error);
     handleAPIError(error);
   }
 }

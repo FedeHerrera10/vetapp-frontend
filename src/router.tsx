@@ -16,6 +16,11 @@ import { UserDetailView } from "./views/auth/UserDetailView";
 import { RegisterViewUserSystem } from "./views/auth/RegisterViewUserSystem";
 import { EditViewUserSystem } from "./views/auth/EditViewUserSystem";
 import { ProfileView } from "./views/profile/ProfileView";
+import { UploadImageProfile } from "./components/ui/profile/UploadImageProfile";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { DashboardPets } from "./views/pets/DashboardPets";
+import { RegisterPetView } from "./views/pets/RegisterPetView";
+import { EditPetView } from "./views/pets/EditPetView";
 
 export default function Router() {
   return (
@@ -24,21 +29,55 @@ export default function Router() {
         <Route path="/" element={<Index />} index />
         <Route element={<AppLayout />}>
           <Route path="/app/" element={<Dashboard />}>
-            <Route path="security" element={<DashboardSecurity />} />
+            <Route
+              path="security"
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
+                  <DashboardSecurity />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="security/add-user/:role"
-              element={<RegisterViewUserSystem />}
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
+                  <RegisterViewUserSystem />
+                </ProtectedRoute>
+              }
             />
             <Route path="security/user/view/:id" element={<UserDetailView />} />
             <Route
               path="security/user/edit/:id"
               element={<EditViewUserSystem />}
             />
+            <Route
+              element={<UploadImageProfile />}
+              path="profile/:id/upload-image"
+            />
             <Route element={<Veterinarian />} path="vets" />
             <Route element={<VeterinarianDetail />} path="vets/:id" />
             <Route element={<Turnos />} path="turnos" />
             <Route element={<ProfileView />} path="profile" />
+            <Route element={
+              <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
+                <DashboardPets />
+              </ProtectedRoute>
+            } path="pets" />
+            <Route element={
+              <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
+                <RegisterPetView />
+              </ProtectedRoute>
+            } path="pets/add" />
+            <Route element={
+              <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
+                <EditPetView />
+              </ProtectedRoute>
+            } path="pets/edit/:id" />
+            
           </Route>
+          
+          
+          
         </Route>
 
         <Route element={<AuthLayout />}>
