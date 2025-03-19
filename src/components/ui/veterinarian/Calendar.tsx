@@ -52,8 +52,6 @@ const Calendar: FC<CalendarProps> = ({
 
   const dayOfWeekOfFirstDay = getDay(firstDayOfMonth);
 
-  console.log(selectedDate);
-
   const weekDays = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
 
   const isDateAvailable = (date: Date) => {

@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { AppointmentFormData } from "@/types/index";
 import Calendar from "@/components/ui/veterinarian/Calendar";
 import { AppointmentModal } from "@/components/ui/veterinarian/AppointmentModal";
-import { veterinarian } from "@/data/mockData";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import profile from "@/assets/img/profile.png";
+import { generateAvailableDays } from "@/data/mockData";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getFechasDisponibles } from "@/api/VetApi";
 
 export const VeterinarianDetail = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [fechas, setFechas] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const vet = location.state?.veterinarian || {};
+  const availability = generateAvailableDays(fechas) || [];
 
   const handleDateSelect = (date: string) => {
     setSelectedDate(date);
@@ -23,16 +29,25 @@ export const VeterinarianDetail = () => {
     setIsModalOpen(true);
   };
 
+  const queryClient = useQueryClient();
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    queryClient.invalidateQueries({
+      queryKey: ["vetAppointmentModal"],
+    });
   };
+  const { data, isLoading, isSuccess } = useQuery({
+    queryKey: ["vetDetails", vet.id],
+    queryFn: () => getFechasDisponibles(vet.id),
+    retry: false,
+  });
 
-  const handleSubmitAppointment = (data: AppointmentFormData) => {
-    // In a real app, this would send the data to an API
-    console.log("Appointment requested:", data);
-    alert(`Appointment requested for ${data.date} with ${veterinarian.name}`);
-    setIsModalOpen(false);
-  };
+  useEffect(() => {
+    if (isSuccess && !isLoading) {
+      setFechas(data);
+    }
+  }, [isSuccess, data, isLoading]);
 
   return (
     <>
@@ -52,23 +67,29 @@ export const VeterinarianDetail = () => {
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 flex justify-center mb-6 md:mb-0">
             <img
-              src={veterinarian.imageUrl}
-              alt={veterinarian.name}
+              src={vet.name}
+              alt={vet.name}
               className="w-32 h-32 sm:w-48 sm:h-48 rounded-full object-cover border-4 border-indigo-100"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                target.src = profile;
+              }}
             />
           </div>
 
           <div className="md:w-2/3 md:pl-6">
             <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 dark:text-white">
-              {veterinarian.name}
+              Dr. {vet.name}
             </h1>
             <p className="text-indigo-600 font-medium mb-4 dark:text-indigo-400">
-              {veterinarian.specialty}
+              {/* {veterinarian.specialty} */}
+              Aca va la especialidad
             </p>
 
             <div className="mb-6">
               <h2 className="text-lg font-semibold text-gray-700 mb-2 dark:text-white">
-                About
+                Mas datos:
               </h2>
               <p className="text-gray-600 text-sm sm:text-base dark:text-white">
                 Dr. Johnson is a dedicated veterinarian with over 10 years of
@@ -81,7 +102,7 @@ export const VeterinarianDetail = () => {
               onClick={handleRequestAppointment}
               className="w-full sm:w-auto px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
             >
-              Request Appointment
+              Reservar turno
             </button>
           </div>
         </div>
@@ -92,11 +113,11 @@ export const VeterinarianDetail = () => {
           Disponibilidad
         </h2>
         <p className="text-gray-600 mb-4 text-sm sm:text-base dark:text-white">
-          Selecciona una fecha para solicitar un turno a {veterinarian.name}.
+          Selecciona una fecha para solicitar un turno a {vet.name}.
         </p>
 
         <Calendar
-          availableDates={veterinarian.availability || []}
+          availableDates={availability || []}
           onSelectDate={handleDateSelect}
           selectedDate={selectedDate}
         />
@@ -105,9 +126,9 @@ export const VeterinarianDetail = () => {
       <AppointmentModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onSubmit={handleSubmitAppointment}
         selectedDate={selectedDate}
-        veterinarianName={veterinarian.name}
+        veterinarianName={vet.name}
+        veterinarianId={vet.id}
       />
     </>
   );

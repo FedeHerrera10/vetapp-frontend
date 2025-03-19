@@ -10,7 +10,7 @@ const navItemsUser: NavItem[] = [
       id: "appointments",
       title: "Appointments",
       icon: "Calendar",
-      href: "appointments",
+      href: "turnos",
     },
   ];
 

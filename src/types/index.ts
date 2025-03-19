@@ -1,12 +1,57 @@
 import {z} from 'zod';
 
+
+//Schema veterinario
+export const veterinarioSchema =z.array(z.object({
+  id: z.number(),
+  name:z.string(),
+  lastname:z.string(),
+  //specialty: z.string(),
+  //imageUrl: string;
+  //availability?: string[];
+}))
+
+
+//Schema veterinario horarios
+export const horariosSchema =z.array(z.object({
+  fecha: z.string (),
+  horaInicio:z.string(),
+  horaFin:z.string(),
+}))
+
+//Type cargar turno 
+export type turnosFormData = {
+  fecha: string,
+  horaInicio:string,
+  mascota:number,
+  servicio:number,
+  veterinario:number,
+}
+
+//Schema mascota
+  export const MascotaSchema = z.array(z.object({
+  id: z.number(),
+  nombre: z.string(),
+  raza: z.string(),
+  especie: z.string(),
+}))
+
+//Schema Servicios
+export const serviciosSchema = z.array(z.object({
+  id: z.number(),
+  nombre: z.string(),
+  descripcion: z.string(),
+}))
+
+
 // Define the Veterinarian type
 export type VetType = {
   id: number;
   name: string;
-  specialty: string;
-  imageUrl: string;
-  availability?: string[]; // Array of dates in ISO format
+  lastname: string;
+  // specialty: string;
+  // imageUrl: string;
+  //availability?: string[]; // Array of dates in ISO format
 };
 
 export type CardType = {
@@ -14,11 +59,19 @@ export type CardType = {
 };
 
 export type AppointmentFormData = {
-  date: string;
-  time: string;
-  pet: string;
-  service: string;
-  symptoms: string;
+  fecha: string;
+  horario: string;
+  mascota: number;
+  servicio: number;
+  veterinario: number;
+};
+
+export type DataApi = {
+  fecha: string;
+  horario: string;
+  mascota: {id: number};
+  servicio: {id: number};
+  veterinario: {id: number};
 };
 
 export type SeachType = {
@@ -102,3 +155,9 @@ export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
 export type UserEmail = z.infer<typeof UserEmailSchema>;
 export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
 export type UserUpdateSchema = z.infer<typeof updateUserSchema>;
+export type ServiciosType = z.infer<typeof serviciosSchema>;
+export type MascotaType = z.infer<typeof MascotaSchema>;
+export type HorariosType = z.infer<typeof horariosSchema>;
+export type VeterinarianType = z.infer<typeof veterinarioSchema>;
+
+

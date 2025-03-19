@@ -13,10 +13,11 @@ export const SearchVet: FC<SeachType> = ({
     const results = initialVeterinarians.filter(
       (vet) =>
         vet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        vet.specialty.toLowerCase().includes(searchTerm.toLowerCase())
+        vet.lastname.toLowerCase().includes(searchTerm.toLowerCase())
+      // vet.specialty.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredVets(results);
-  }, [searchTerm]);
+  }, [searchTerm, initialVeterinarians, setFilteredVets]);
 
   return (
     <>

@@ -16,7 +16,8 @@
       "@/api/*": ["api/*"],
       "@/types/*": ["types/*"],
       "@/lib/*": ["lib/*"],
-      "@/data/*": ["data/*"]     
+      "@/data/*": ["data/*"]   ,  
+      "@/assets/*":["assets/*"]
     },
 
     /* Bundler mode */

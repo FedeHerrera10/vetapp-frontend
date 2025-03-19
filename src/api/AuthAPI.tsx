@@ -9,8 +9,9 @@ import {
   UserLoginForm,
   UserUpdateSchema,
 } from "../types";
+import { jwtDecode } from "jwt-decode";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_URL_BASE;
 
 export async function authenticateUser(formData: UserLoginForm) {
   try {
@@ -90,7 +91,14 @@ export async function newCode(formData: UserEmail) {
 
 export async function getUser() {
   try {
-    const url = `${BASE_URL}/api/user/`;
+    const token = localStorage.getItem("vetapp");
+    if (!token) {
+      throw new Error("No token found");
+    }
+    const decodedToken: any = jwtDecode(token);
+    const username = decodedToken.username;
+
+    const url = `${BASE_URL}/api/user/name/${username}`;
     const { data } = await api.get(url);
     return data;
   } catch (error) {
@@ -120,9 +128,14 @@ export async function getUserById(id: number) {
     handleAPIError(error);
   }
 }
-export async function editUser({formData ,id }: {formData: UserUpdateSchema ,id: number}) {
+export async function editUser({
+  formData,
+  id,
+}: {
+  formData: UserUpdateSchema;
+  id: number;
+}) {
   try {
-    console.log(formData)
     const url = `${BASE_URL}/api/user/${id}`;
     const { data } = await api.put(url, formData);
     return data;

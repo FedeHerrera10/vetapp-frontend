@@ -1,72 +1,36 @@
-import { useState} from "react";
+import { useEffect, useState } from "react";
 import { CardVet } from "@/components/ui/veterinarian/CardVet";
 import { SearchVet } from "@/components/ui/veterinarian/SearchVet";
-import { VetType } from "@/types/index";
-
-// Sample data for veterinarians
-const initialVeterinarians: VetType[] = [
-  {
-    id: 1,
-    name: "Dr. Sarah Johnson",
-    specialty: "Small Animal Medicine",
-    imageUrl:
-      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=8",
-  },
-  {
-    id: 2,
-    name: "Dr. Michael Chen",
-    specialty: "Surgery",
-    imageUrl:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    id: 3,
-    name: "Dr. Emily Rodriguez",
-    specialty: "Dermatology",
-    imageUrl:
-      "https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    id: 4,
-    name: "Dr. James Wilson",
-    specialty: "Cardiology",
-    imageUrl:
-      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    id: 5,
-    name: "Dr. Lisa Thompson",
-    specialty: "Neurology",
-    imageUrl:
-      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    id: 6,
-    name: "Dr. Robert Garcia",
-    specialty: "Oncology",
-    imageUrl:
-      "https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    id: 7,
-    name: "Dr. Amanda Lee",
-    specialty: "Emergency Medicine",
-    imageUrl:
-      "https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-  {
-    id: 8,
-    name: "Dr. David Kim",
-    specialty: "Ophthalmology",
-    imageUrl:
-      "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  },
-];
+import { VeterinarianType, VetType } from "@/types/index";
+import { useQuery } from "@tanstack/react-query";
+import { listVeterinarios } from "@/api/VetApi";
 
 export const Veterinarian = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [initialVeterinarians, setInitialVeterinarians] =
+    useState<VeterinarianType>([]);
   const [filteredVets, setFilteredVets] =
     useState<VetType[]>(initialVeterinarians);
+
+  const {
+    data: vets,
+    isLoading,
+    isSuccess,
+  } = useQuery({
+    queryKey: ["listVeterinarian"],
+    queryFn: listVeterinarios,
+    retry: false,
+  });
+
+  useEffect(() => {
+    if (isSuccess && !isLoading) {
+      setInitialVeterinarians(vets || []);
+    }
+  }, [isSuccess, vets, isLoading]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-2 ">

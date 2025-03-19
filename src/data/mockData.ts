@@ -1,26 +1,27 @@
-import { VetType } from '../types';
-import { addDays, format } from 'date-fns';
+import { isBefore, parseISO, startOfDay, subDays, format } from "date-fns";
+import { HorariosType } from "../types";
+
+
 
 // Generate next 30 days for availability
-const generateAvailableDays = () => {
-  const days = [];
-  const today = new Date();
-  
-  // Generate random availability for next 30 days
-  for (let i = 1; i <= 30; i++) {
-    // Randomly decide if this day is available (70% chance)
-    if (Math.random() < 0.7) {
-      days.push(format(addDays(today, i), 'yyyy-MM-dd'));
-    }
-  }
-  
-  return days;
+export const generateAvailableDays = (fechas: string[]) => {
+  const today = startOfDay(new Date()); // Establecer hoy a medianoche
+
+  const availableDays = fechas.filter((fecha) => {
+    const date = startOfDay(new Date(fecha)); // Establecer la fecha a medianoche
+    return date.getDay() !== 5 && !isBefore(date, subDays(today, 1)); // Excluir domingos y fechas anteriores
+  });
+
+  return availableDays;
 };
 
-export const veterinarian: VetType = {
-  id: 1,
-  name: "Dr. Sarah Johnson",
-  specialty: "Small Animal Medicine",
-  imageUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
-  availability: generateAvailableDays()
+export const transformAvailableSlots = (horarios: HorariosType) => {
+  return horarios.map(horario => {
+      const hour = parseISO(`${horario.fecha}T${horario.horaInicio}:00`); // Crear un objeto Date
+      const formattedHour = format(hour, "hh:mm a"); // Formato "hh:mm AM/PM"
+      return {
+          horaInicio: horario.horaInicio,
+          label: formattedHour // "10:00 AM", "11:00 AM", etc.
+      };
+  });
 };

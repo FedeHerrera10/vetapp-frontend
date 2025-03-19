@@ -1,28 +1,28 @@
 import { ChevronRight, User } from "lucide-react";
 import { CardType } from "@/types/index";
 import { useNavigate } from "react-router-dom";
+import profile from "@/assets/img/profile.png";
 
 export const CardVet = ({ vet }: CardType) => {
   const navigate = useNavigate();
   // Handle view details click
   const handleViewDetails = (id: number) => {
-    navigate(location.pathname + `/${id}`);
+    navigate(location.pathname + `/${id}`, { state: { veterinarian: vet } });
   };
 
   return (
     <>
       <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 dark:bg-gray-800">
         <div className="relative h-48 bg-gray-200 ">
-          {vet.imageUrl ? (
+          {vet.name ? (
             <img
-              src={vet.imageUrl}
+              src={vet.name}
               alt={vet.name}
               className="w-full h-full object-cover "
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.onerror = null;
-                target.src =
-                  "https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80";
+                target.src = profile;
               }}
             />
           ) : (
@@ -36,7 +36,8 @@ export const CardVet = ({ vet }: CardType) => {
             {vet.name}
           </h3>
           <p className="text-gray-600 mb-4 dark:text-gray-200">
-            {vet.specialty}
+            {/* {vet.specialty} */}
+            Aca va la especialidad
           </p>
           <button
             onClick={() => handleViewDetails(vet.id)}

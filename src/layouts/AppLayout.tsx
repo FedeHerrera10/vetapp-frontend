@@ -38,25 +38,25 @@ export const AppLayout = () => {
     localStorage.removeItem("vetapp");
     return <Navigate to="/auth/reset-password" />;
   }
-  
+
   return (
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <NavbarDash isDarkMode={isDarkMode} toggleDarkMode={toggleTheme} />
+        <NavbarDash isDarkMode={isDarkMode} toggleDarkMode={toggleTheme} />
 
-      <Sidebar
-        isCollapsed={isCollapsed}
-        toggleCollapse={() => setIsCollapsed(!isCollapsed)}
-        role={data.roles[0].name}
-      />
+        <Sidebar
+          isCollapsed={isCollapsed}
+          toggleCollapse={() => setIsCollapsed(!isCollapsed)}
+          role={data.roles[0].name}
+        />
 
-      <main
-        className={`pt-16 min-h-screen transition-all ease-in-out duration-300
+        <main
+          className={`pt-16 min-h-screen transition-all ease-in-out duration-300
           ${isCollapsed ? "md:pl-16" : "lg:pl-64 "}`}
-      >
-        <Outlet />
-      </main>
-    </div>
+        >
+          <Outlet />
+        </main>
+      </div>
 
       <ToastContainer pauseOnHover={false} pauseOnFocusLoss={false} />
     </>
