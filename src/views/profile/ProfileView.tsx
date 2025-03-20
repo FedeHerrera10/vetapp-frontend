@@ -40,7 +40,10 @@ export const ProfileView = () => {
               <div className="flex flex-col md:flex-row items-center justify-between">
                 <div>
                   <div className="flex items-center gap-2">
-                    <h1 className="text-2xl font-bold capitalize" >{data.lastname}{" "}{data.name}</h1>{" "}
+                  <Link to={`/app/security/user/view/${data.id}`}>
+                  <h2 className="text-2xl font-bold capitalize" >{data.lastname}{" "}{data.name}</h2>{" "}
+                  </Link>
+                    
                     <Link to={`/app/security/user/edit/${data.id}?backUrl=1`}>
                       <Pencil className="w-4 h-4 text-gray-900 hover:text-indigo-700 dark:text-slate-50 dark:hover:text-indigo-400" />
                     </Link>

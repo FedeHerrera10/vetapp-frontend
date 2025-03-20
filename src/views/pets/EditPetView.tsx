@@ -3,7 +3,7 @@ import FullScreenModal from "@/components/ui/modal";
 import { PetRegisterSchema } from "@/types/index";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getPet, registerPet } from "@/api/PetApi";
+import { getPet, updatePet } from "@/api/PetApi";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UseImageToBase64 } from "@/hooks/UseImageToBase64";
@@ -52,7 +52,7 @@ export const EditPetView = () => {
   }, [data, reset]);
 
   const { mutate, status } = useMutation({
-    mutationFn: registerPet,
+    mutationFn: updatePet,
     onError: (error) => {
       toast.error(error.message);
     },
@@ -71,12 +71,12 @@ export const EditPetView = () => {
   const onSubmit = handleSubmit((datapet) => {
     const formdata = datapet;
     formdata.imagePet = base64Image || data.imagePet;
-    mutate({ formData: formdata, userid: data.id });
+    mutate({ formData: formdata, petId: Number(idMascota) });
   });
 
   return (
     <FullScreenModal
-      isOpen={true}
+      isOpen={true} 
       onClose={() => {}}
       title="Agregar Mascota"
       isBack={true}

@@ -19,6 +19,7 @@ export const RegisterPetView = () => {
     caracteristicas: "",
     color: "",
     imagePet: "",
+    enabled: true
   };
 
   const navigate = useNavigate();

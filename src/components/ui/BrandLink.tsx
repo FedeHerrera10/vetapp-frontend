@@ -18,8 +18,8 @@ export const BrandLink: FC<BrandLinkProps> = ({ isDarkMode }) => {
         alt="brand-icon"
         className="size-8"
       />
-      <p className="self-center text-2xl font-semibold whitespace-nowrap xl:text-3xl dark:text-gray-200">
-        Vet<span className="text-indigo-500 dark:text-indigo-300">App</span>
+      <p className="self-center text-2xl font-semibold whitespace-nowrap xl:text-3xl dark:text-slate-700">
+        Vet<span className="text-indigo-500 ">App</span>
       </p>
     </Link>
   );

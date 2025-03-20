@@ -1,6 +1,7 @@
 
+import { PetSchema } from '@/types/index'
 import { CardPets } from './CardPets'
-export const ListPets = ({pets}: {pets: any}) => {
+export const ListPets = ({pets}: {pets: PetSchema[]}) => {
    
 
   return (
@@ -9,8 +10,7 @@ export const ListPets = ({pets}: {pets: any}) => {
       Mascotas Registradas
     </h2>
     {(pets.length > 0 ) ? <h2 className='text-gray-600 dark:text-slate-50/80'>No tienes mascotas registradas</h2> 
-    : pets.map((pet: any) => <CardPets key={pet.id} />)}
-    <CardPets/>
+    : pets.map((pet: PetSchema) => <CardPets key={pet.id} pet={pet}/>)}
   </div>
 
   )

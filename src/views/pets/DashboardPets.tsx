@@ -1,16 +1,21 @@
 import { getPets } from "@/api/PetApi";
 import { CardPets } from "@/components/ui/profile/CardPets";
+import { Spinner } from "@/components/ui/Spinner";
+import { useAuth } from "@/hooks/UseAuth";
 import { PetSchema } from "@/types/index";
 import { useQuery } from "@tanstack/react-query";
 import { PawPrint, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const DashboardPets = () => {
-  const { data } = useQuery({
+  const {data:user , isLoading} = useAuth();
+  
+  const { data , isLoading:isPetsLoading } = useQuery({
     queryKey: ["pets"],
-    queryFn: () => getPets(),
+    queryFn: () => getPets({id: user?.id}),
   });
 
+  if (isLoading || isPetsLoading) return <div className="flex justify-center items-center h-[70vh]"><Spinner/></div>;
   if (data)
     return (
       <section className="px-0 md:px-6">
@@ -29,8 +34,8 @@ export const DashboardPets = () => {
           </Link>
         </div>
         <div className="rounded-xl mt-10 bg-slate-200/40 text-gray-800 p-8 dark:bg-gray-800 dark:text-slate-50">
-          <div className="  ">
-            {data.length === 0 ? (
+          <div className="">
+            {data.length == 0 ? (
               <h2 className="text-gray-600 dark:text-slate-50/80">
                 No tienes mascotas registradas
               </h2>

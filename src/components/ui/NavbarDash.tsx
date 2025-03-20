@@ -3,6 +3,7 @@ import { UserMenuOption } from "../../types";
 import { BrandLink } from "./BrandLink";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/hooks/UseAuth";
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -14,10 +15,12 @@ export const NavbarDash: React.FC<NavbarProps> = ({
   toggleDarkMode,
 }) => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { clearQuery } = useAuth();
   const navigate = useNavigate();
   
   
   const handleLogout = () => {
+    clearQuery();
     setIsUserMenuOpen(false);
     localStorage.removeItem("vetapp");
     navigate("/auth/login", { replace: true });
