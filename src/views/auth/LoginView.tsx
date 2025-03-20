@@ -9,7 +9,7 @@ export const LoginView = () => {
         <div className="w-full bg-white sm:p-8  max-w-md mx-auto rounded-lg lg:w-1/2 lg:pb-4 lg:max-w-full lg:rounded-none lg:rounded-l-lg p-5">
           <div className="mt-3 lg:mt-6 ">
             <BrandLink />
-            <h1 className=" text-center my-5 text-2xl xl:text-3xl font-extrabold">
+            <h1 className="dark:text-gray-700 text-center my-5 text-2xl xl:text-3xl font-extrabold">
               Iniciar Sesión
             </h1>
           </div>

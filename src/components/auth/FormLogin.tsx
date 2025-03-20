@@ -20,6 +20,7 @@ export const FormLogin = () => {
   };
 
   const {
+    reset,
     register,
     handleSubmit,
     formState: { errors },
@@ -36,6 +37,7 @@ export const FormLogin = () => {
     },
     onSuccess: () => {
       toast.success(MESSAGE_SUCCESS);
+      reset();
       navigate("/app");
     },
   });

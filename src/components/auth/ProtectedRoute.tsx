@@ -2,6 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/UseAuth"; // Donde obtienes el usuario
 
 const ProtectedRoute = ({ children, allowedRoles  }) => {
+    console.log('entre');
     const { data } = useAuth();
     const location = useLocation();
 

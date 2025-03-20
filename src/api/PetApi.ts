@@ -16,9 +16,9 @@ export async function registerPet({formData,userid}: {formData: PetRegisterSchem
   }
 
 
-  export async function getPets() {
+  export async function getPets({id}: {id: number}) {
     try {
-      const url = `${BASE_URL}/api/mascota`;
+      const url = `${BASE_URL}/api/mascota/list/${id}`;
       const { data } = await api.get(url);
       return data;
     } catch (error) {
@@ -30,6 +30,28 @@ export async function registerPet({formData,userid}: {formData: PetRegisterSchem
     try {
       const url = `${BASE_URL}/api/mascota/${idMascota}`;
       const { data } = await api.get(url);
+      return data;
+    } catch (error) {
+      handleAPIError(error);
+    }
+  }
+
+  export async function updatePet({formData,petId}: {formData: PetRegisterSchema, petId: number}) {
+    try {
+      const url = `${BASE_URL}/api/mascota/${petId}`;
+      console.log(url);
+      const { data } = await api.put<string>(url, formData);
+      return data;
+    } catch (error) {
+      handleAPIError(error);
+    }
+  }
+
+  export async function changeStatus({formData,petId}: {formData: string, petId: number}) {
+    try {
+      const url = `${BASE_URL}/api/mascota/change-status/${petId}/${formData}`;
+      console.log(formData);
+      const { data } = await api.put<string>(url);
       return data;
     } catch (error) {
       handleAPIError(error);

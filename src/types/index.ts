@@ -116,6 +116,7 @@ const petSchema = z.object({
   peso : z.number(),
   color:z.string(),
   imagePet : z.string(),
+  enabled:z.boolean()
 })
 
 type User = z.infer<typeof userSchema>;
