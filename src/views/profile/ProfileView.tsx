@@ -3,6 +3,7 @@ import { getUser } from "../../api/AuthAPI";
 import { Spinner } from "../../components/ui/Spinner";
 import { Ban, Pencil, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
+import { DashboardVets } from "../vets/DashboardVets";
 
 export const ProfileView = () => {
   const { data, isLoading } = useQuery({
@@ -22,6 +23,7 @@ export const ProfileView = () => {
     );
   if (data)
     return (
+  <>
       <div className=" w-full bg-slate-100 rounded-2xl shadow-xl overflow-hidden dark:bg-gray-800 dark:text-slate-50">
         {/* Owner Information */}
         <div className="bg-slate-200/40 text-gray-800 p-8 dark:bg-gray-700 dark:text-slate-50">
@@ -68,5 +70,17 @@ export const ProfileView = () => {
         </div>
         
       </div>
+      {/* Si es veterinario */}
+      {data.roles[0].name === "ROLE_CLIENTE" && 
+      <>
+       
+      <DashboardVets id={data.id} />
+        
+      
+      </>
+      }
+
+
+      </>
     );
 };

@@ -29,7 +29,7 @@ export const AppLayout = () => {
       </div>
     );
 
-  if (isError) {
+  if (isError || data.roles.length === 0) {
     localStorage.removeItem("vetapp");
     return <Navigate to="/auth/login" />;
   }
@@ -38,7 +38,9 @@ export const AppLayout = () => {
     localStorage.removeItem("vetapp");
     return <Navigate to="/auth/reset-password" />;
   }
+
   
+
   return (
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
