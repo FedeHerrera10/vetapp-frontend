@@ -21,6 +21,8 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { DashboardPets } from "./views/pets/DashboardPets";
 import { RegisterPetView } from "./views/pets/RegisterPetView";
 import { EditPetView } from "./views/pets/EditPetView";
+import { RegisterAboutVetView } from "./views/vets/RegisterAboutVetView";
+import { UpdateAboutVetView } from "./views/vets/UpdateAboutVetView";
 
 export default function Router() {
   return (
@@ -73,7 +75,8 @@ export default function Router() {
                 <EditPetView />
               </ProtectedRoute>
             } path="pets/edit/:id" />
-            
+            <Route element={<RegisterAboutVetView />} path="vets/about/:id" />
+            <Route element={<UpdateAboutVetView />} path="vets/update-about/:id" />
           </Route>
           
           

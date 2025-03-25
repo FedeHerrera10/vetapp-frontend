@@ -118,6 +118,9 @@ const petSchema = z.object({
   imagePet : z.string(),
   enabled:z.boolean()
 })
+const vetAbout = z.object({
+  descripcion: z.string()
+})
 
 type User = z.infer<typeof userSchema>;
 export type UserLoginForm = Pick<User,'username' | 'password'>;
@@ -130,3 +133,4 @@ export type UserUpdateSchema = z.infer<typeof updateUserSchema>;
 export type UploadImageProfileSchema = z.infer<typeof uploadImageProfileSchema>
 export type PetSchema = z.infer<typeof petSchema>
 export type PetRegisterSchema = Omit<PetSchema, 'id'>
+export type VetAboutSchema = z.infer<typeof vetAbout>
