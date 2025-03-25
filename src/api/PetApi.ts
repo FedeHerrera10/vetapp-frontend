@@ -2,7 +2,7 @@ import { handleAPIError } from "@/utils/handleAPIError";
 import { PetRegisterSchema } from "../types";
 import api from "@/lib/apiaxios";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = import.meta.env.VITE_URL_BASE;
 
 export async function registerPet({formData,userid}: {formData: PetRegisterSchema, userid: number}) {
     try {

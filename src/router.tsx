@@ -21,6 +21,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import { DashboardPets } from "./views/pets/DashboardPets";
 import { RegisterPetView } from "./views/pets/RegisterPetView";
 import { EditPetView } from "./views/pets/EditPetView";
+import { HistoriaClinica } from "./views/HistoriaClinica";
 
 export default function Router() {
   return (
@@ -57,27 +58,40 @@ export default function Router() {
             <Route element={<Veterinarian />} path="vets" />
             <Route element={<VeterinarianDetail />} path="vets/:id" />
             <Route element={<Turnos />} path="turnos" />
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_VETERINARIO"]}>
+                  <HistoriaClinica />
+                </ProtectedRoute>
+              }
+              path="historias-clinicas"
+            />
             <Route element={<ProfileView />} path="profile" />
-            <Route element={
-              <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
-                <DashboardPets />
-              </ProtectedRoute>
-            } path="pets" />
-            <Route element={
-              <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
-                <RegisterPetView />
-              </ProtectedRoute>
-            } path="pets/add" />
-            <Route element={
-              <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
-                <EditPetView />
-              </ProtectedRoute>
-            } path="pets/edit/:id" />
-            
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
+                  <DashboardPets />
+                </ProtectedRoute>
+              }
+              path="pets"
+            />
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
+                  <RegisterPetView />
+                </ProtectedRoute>
+              }
+              path="pets/add"
+            />
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_CLIENTE"]}>
+                  <EditPetView />
+                </ProtectedRoute>
+              }
+              path="pets/edit/:id"
+            />
           </Route>
-          
-          
-          
         </Route>
 
         <Route element={<AuthLayout />}>

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { AppointmentFormData, DataApi } from "@/types/index";
 import { format, parseISO } from "date-fns";
 import FullScreenModal from "../modal";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getHorariosDisponibles,
   getMascotas,
@@ -12,6 +12,7 @@ import { useAuth } from "@/hooks/UseAuth";
 import { transformAvailableSlots } from "@/data/mockData";
 import { createTurno } from "@/api/TurnoApi";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 // Set the app element for accessibility
 // Modal.setAppElement("#root");
@@ -31,34 +32,6 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   veterinarianName,
   veterinarianId,
 }) => {
-  function Submit(data: AppointmentFormData) {
-    data.fecha = selectedDate || "";
-    const { mascota, servicio, veterinario, ...rest } = data;
-    const dataApi: DataApi = {
-      ...rest,
-      mascota: { id: mascota },
-      servicio: { id: servicio },
-      veterinario: { id: veterinario },
-    };
-    console.log(dataApi);
-    createTurnoMutation(dataApi);
-    reset();
-    onClose();
-  }
-
-  const { mutate: createTurnoMutation } = useMutation({
-    mutationFn: createTurno,
-    onSuccess: () => {
-      toast.success("Turno creado exitosamente");
-      reset();
-      onClose();
-    },
-    onError: (error) => {
-      toast.error("Error al crear el turno");
-      console.error("Error:", error);
-    },
-  });
-
   const {
     handleSubmit,
     register,
@@ -72,7 +45,48 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
       servicio: 0,
       veterinario: veterinarianId,
     },
+    mode: "onBlur", // Validar al perder el foco
   });
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  const { mutate: createTurnoMutation } = useMutation({
+    mutationFn: createTurno,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["vetModal", [veterinarianId]],
+      });
+      queryClient.invalidateQueries({ queryKey: ["vetModalMascotas"] });
+      queryClient.invalidateQueries({ queryKey: ["vetModalServicios"] });
+      toast.success("Turno creado exitosamente");
+      reset();
+      onClose();
+      navigate("/app/turnos");
+    },
+    onError: (error) => {
+      toast.error("Error al crear el turno");
+      console.error("Error:", error);
+    },
+  });
+
+  function Submit(data: AppointmentFormData) {
+    if (!selectedDate) {
+      toast.error("Debe seleccionar una fecha");
+      return;
+    }
+
+    data.fecha = selectedDate;
+    const { mascota, servicio, veterinario, ...rest } = data;
+    const dataApi: DataApi = {
+      ...rest,
+      mascota: { id: Number(mascota) },
+      servicio: { id: Number(servicio) },
+      veterinario: { id: Number(veterinario) },
+    };
+
+    createTurnoMutation(dataApi);
+  }
 
   const { data: user } = useAuth();
   const formattedDate = selectedDate
@@ -80,7 +94,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
     : "No date selected";
 
   const { data: horarios } = useQuery({
-    queryKey: ["vetModal", [veterinarianId, selectedDate]],
+    queryKey: ["vetModal", [veterinarianId]],
     queryFn: () =>
       getHorariosDisponibles({ id: veterinarianId, fecha: selectedDate || "" }),
     enabled: isOpen,
@@ -109,26 +123,36 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
       onClose={onClose}
     >
       <div className="px-6 py-4">
-        <div className="mb-6 bg-indigo-50 p-4 rounded-lg">
-          <p className="text-gray-700 mb-2">
-            <span className="font-medium text-indigo-700">Veterinarian:</span>{" "}
+        <div className="mb-6 bg-indigo-50 p-4 rounded-lg dark:bg-gray-600">
+          <p className="text-gray-700 mb-2 dark:text-white">
+            <span className="font-medium text-indigo-700 dark:text-indigo-300">
+              Veterinarian:
+            </span>{" "}
             {veterinarianName}
           </p>
-          <p className="text-gray-700">
-            <span className="font-medium text-indigo-700">Date:</span>{" "}
+          <p className="text-gray-700 dark:text-white">
+            <span className="font-medium text-indigo-700 dark:text-indigo-300">
+              Date:
+            </span>{" "}
             {formattedDate}
           </p>
         </div>
 
         <form onSubmit={handleSubmit(Submit)}>
-          <div className="mb-4">
+          <div className="mb-4 ">
             <label htmlFor="time" className="block mb-2">
               Seleccionar Horario:
             </label>
             <select
               id="time"
-              {...register("horario", { required: "Selecciona un horario" })}
-              className={`w-full px-3 py-2 border rounded-md ${
+              {...register("horario", {
+                required: "Selecciona un horario",
+                validate: (value) => {
+                  if (!value) return "El horario es requerido";
+                  return true;
+                },
+              })}
+              className={`w-full dark:bg-gray-600 dark:text-white dark:border-gray-300 px-3 py-2 border rounded-md ${
                 errors.horario ? "border-red-500" : "border-gray-300"
               }`}
             >
@@ -150,8 +174,15 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
             </label>
             <select
               id="pet"
-              {...register("mascota", { required: "Selecciona una mascota" })}
-              className={`w-full px-3 py-2 border rounded-md ${
+              {...register("mascota", {
+                required: "Selecciona una mascota",
+                validate: (value) => {
+                  if (!value || value === 0)
+                    return "Debe seleccionar una mascota";
+                  return true;
+                },
+              })}
+              className={`w-full dark:bg-gray-600 dark:text-white dark:border-gray-300 px-3 py-2 border rounded-md ${
                 errors.mascota ? "border-red-500" : "border-gray-300"
               }`}
             >
@@ -173,8 +204,15 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
             </label>
             <select
               id="service"
-              {...register("servicio", { required: "Selecciona un servicio" })}
-              className={`w-full px-3 py-2 border rounded-md ${
+              {...register("servicio", {
+                required: "Selecciona un servicio",
+                validate: (value) => {
+                  if (!value || value === 0)
+                    return "Debe seleccionar un servicio";
+                  return true;
+                },
+              })}
+              className={`w-full dark:bg-gray-600 dark:text-white dark:border-gray-300 px-3 py-2 border rounded-md ${
                 errors.servicio ? "border-red-500" : "border-gray-300"
               }`}
             >
@@ -190,10 +228,10 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 mt-6  bg-white py-4 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-3 mt-6  bg-white py-4 border-t border-gray-200 dark:bg-gray-800 dark:border-white-800">
             <button
               type="submit"
-              //disabled={!selectedDate}
+              disabled={!selectedDate}
               className={`px-4 py-2 rounded-md text-sm font-medium text-white w-full sm:w-auto ${
                 !selectedDate
                   ? "bg-indigo-400 cursor-not-allowed"

@@ -67,7 +67,7 @@ export const VeterinarianDetail = () => {
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/3 flex justify-center mb-6 md:mb-0">
             <img
-              src={vet.name}
+              src={vet.imageData}
               alt={vet.name}
               className="w-32 h-32 sm:w-48 sm:h-48 rounded-full object-cover border-4 border-indigo-100"
               onError={(e) => {

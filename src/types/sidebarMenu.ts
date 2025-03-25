@@ -13,15 +13,26 @@ const navItemsUser: NavItem[] = [
       href: "turnos",
     },
     { id: "pets", title: "Pets", icon: "PawPrint", href: "pets" },
+    
   ];
+
+const navItemsVet: NavItem[]= [
+    
+{ id: "historias-clinicas", title: "Historias Clínicas", icon: "ClipboardList", href: "historias-clinicas" }]
 
 
 const getMenu = (rol : string)=>{
-    if(rol === "ROLE_ADMIN"){
-        return navItemsAdmin;
-    }else{
-        return navItemsUser;
-    }
+
+  switch(rol){
+    case "ROLE_ADMIN":
+      return navItemsAdmin;
+    case "ROLE_CLIENTE":
+      return navItemsUser;
+    case "ROLE_VETERINARIO":
+      return [...navItemsUser, ...navItemsVet];
+    default:
+      return [];
+  }
 }
 
 export {getMenu};

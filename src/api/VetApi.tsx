@@ -24,6 +24,7 @@ export const listVeterinarios = async (): Promise<
   try {
     const url = `${BASE_URL}/api/user/veterinarios`;
     const { data } = await api.get<VeterinarianType>(url);
+    console.log(data);
     const response = veterinarioSchema.safeParse(data);
     if (response.success) {
       return response.data;

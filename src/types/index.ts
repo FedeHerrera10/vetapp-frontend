@@ -1,13 +1,24 @@
 import {z} from 'zod';
 
+//Type Appointment
+export type Appointment = {
+  estado: string,
+  fecha: string,
+  horario: string,
+  id: number,
+  mascotaId: number,
+  mascotaNombre: string,
+  servicioNombre: string,
+  veterinarioNombre: string
+}
 
 //Schema veterinario
 export const veterinarioSchema =z.array(z.object({
   id: z.number(),
+  imageData: z.string() ,
   name:z.string(),
   lastname:z.string(),
   //specialty: z.string(),
-  //imageUrl: string;
   //availability?: string[];
 }))
 
@@ -49,8 +60,8 @@ export type VetType = {
   id: number;
   name: string;
   lastname: string;
+  imageData: string;
   // specialty: string;
-  // imageUrl: string;
   //availability?: string[]; // Array of dates in ISO format
 };
 
@@ -186,3 +197,15 @@ export type VeterinarianType = z.infer<typeof veterinarioSchema>;
 export type UploadImageProfileSchema = z.infer<typeof uploadImageProfileSchema>
 export type PetSchema = z.infer<typeof petSchema>
 export type PetRegisterSchema = Omit<PetSchema, 'id'>
+
+export type historiaC = {
+  id: number;
+  mascota: {
+    id: number;
+    nombre: string;
+  };
+  notas: string;
+  tratamientos: string;
+  recetasMedicas: string;
+  fecha?: string;
+}

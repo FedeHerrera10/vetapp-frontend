@@ -16,7 +16,7 @@ export const CardVet = ({ vet }: CardType) => {
         <div className="relative h-48 bg-gray-200 ">
           {vet.name ? (
             <img
-              src={vet.name}
+              src={vet.imageData}
               alt={vet.name}
               className="w-full h-full object-cover "
               onError={(e) => {

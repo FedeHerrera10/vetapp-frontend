@@ -92,6 +92,7 @@ export async function newCode(formData: UserEmail) {
 export async function getUser() {
   try {
     const url = `${BASE_URL}/api/user/`;
+
     const { data } = await api.get(url);
     return data;
   } catch (error) {
