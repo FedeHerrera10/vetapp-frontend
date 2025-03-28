@@ -32,8 +32,6 @@ export const Veterinarian = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(filteredVets);
-
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-2 ">
       {/* Search */}

@@ -2,8 +2,8 @@ import { historiaC } from "@/types/index";
 import { Eye } from "lucide-react";
 
 interface Props {
-  historias: historiaC[];
-  onView: (historia: historiaC) => void;
+  historias: historiaC[] | undefined;
+  onView: (historia: historiaC | undefined) => void;
 }
 
 export const HistoriaClinicaTable = ({ historias, onView }: Props) => {
@@ -27,7 +27,7 @@ export const HistoriaClinicaTable = ({ historias, onView }: Props) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
-          {historias.map((historia) => (
+          {historias?.map((historia) => (
             <tr
               key={historia.id}
               className="hover:bg-gray-50 dark:hover:bg-gray-800"

@@ -1,6 +1,7 @@
 import { NavItem } from "./index";
 const navItemsAdmin: NavItem[] = [
     {id: "usuarios" ,title : "Usuarios", icon : "UserRound", href:"security"},
+    {id: "services" ,title : "Servicios", icon : "BarChart3", href:"services"},
   ];
 
 const navItemsUser: NavItem[] = [

@@ -22,6 +22,7 @@ import { DashboardPets } from "./views/pets/DashboardPets";
 import { RegisterPetView } from "./views/pets/RegisterPetView";
 import { EditPetView } from "./views/pets/EditPetView";
 import { HistoriaClinica } from "./views/HistoriaClinica";
+import { Services } from "./views/Services";
 
 export default function Router() {
   return (
@@ -58,6 +59,14 @@ export default function Router() {
             <Route element={<Veterinarian />} path="vets" />
             <Route element={<VeterinarianDetail />} path="vets/:id" />
             <Route element={<Turnos />} path="turnos" />
+            <Route
+              element={
+                <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
+                  <Services />
+                </ProtectedRoute>
+              }
+              path="services"
+            />
             <Route
               element={
                 <ProtectedRoute allowedRoles={["ROLE_VETERINARIO"]}>

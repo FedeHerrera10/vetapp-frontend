@@ -1,59 +1,65 @@
-import {z} from 'zod';
+import { z } from "zod";
 
 //Type Appointment
 export type Appointment = {
-  estado: string,
-  fecha: string,
-  horario: string,
-  id: number,
-  mascotaId: number,
-  mascotaNombre: string,
-  servicioNombre: string,
-  veterinarioNombre: string
-}
+  estado: string;
+  fecha: string;
+  horario: string;
+  id: number;
+  mascotaId: number;
+  mascotaNombre: string;
+  servicioNombre: string;
+  veterinarioNombre: string;
+};
 
 //Schema veterinario
-export const veterinarioSchema =z.array(z.object({
-  id: z.number(),
-  imageData: z.string() ,
-  name:z.string(),
-  lastname:z.string(),
-  //specialty: z.string(),
-  //availability?: string[];
-}))
-
+export const veterinarioSchema = z.array(
+  z.object({
+    id: z.number(),
+    imageData: z.string(),
+    name: z.string(),
+    lastname: z.string(),
+    //specialty: z.string(),
+    //availability?: string[];
+  })
+);
 
 //Schema veterinario horarios
-export const horariosSchema =z.array(z.object({
-  fecha: z.string (),
-  horaInicio:z.string(),
-  horaFin:z.string(),
-}))
+export const horariosSchema = z.array(
+  z.object({
+    fecha: z.string(),
+    horaInicio: z.string(),
+    horaFin: z.string(),
+  })
+);
 
-//Type cargar turno 
+//Type cargar turno
 export type turnosFormData = {
-  fecha: string,
-  horaInicio:string,
-  mascota:number,
-  servicio:number,
-  veterinario:number,
-}
+  fecha: string;
+  horaInicio: string;
+  mascota: number;
+  servicio: number;
+  veterinario: number;
+};
 
 //Schema mascota
-  export const MascotaSchema = z.array(z.object({
-  id: z.number(),
-  nombre: z.string(),
-  raza: z.string(),
-  especie: z.string(),
-}))
+export const MascotaSchema = z.array(
+  z.object({
+    id: z.number(),
+    nombre: z.string(),
+    raza: z.string(),
+    especie: z.string(),
+  })
+);
 
 //Schema Servicios
-export const serviciosSchema = z.array(z.object({
-  id: z.number(),
-  nombre: z.string(),
-  descripcion: z.string(),
-}))
-
+export const serviciosSchema = z.array(
+  z.object({
+    id: z.number(),
+    nombre: z.string(),
+    descripcion: z.string(),
+  })
+);
 
 // Define the Veterinarian type
 export type VetType = {
@@ -80,9 +86,9 @@ export type AppointmentFormData = {
 export type DataApi = {
   fecha: string;
   horario: string;
-  mascota: {id: number};
-  servicio: {id: number};
-  veterinario: {id: number};
+  mascota: { id: number };
+  servicio: { id: number };
+  veterinario: { id: number };
 };
 
 export type SeachType = {
@@ -92,120 +98,156 @@ export type SeachType = {
   setSearchTerm: (searchTerm: string) => void;
 };
 
-
 /** Navbar dash y sidebar */
 export type NavItem = {
-    id: string;
-    title: string;
-    icon: string;
-    href: string;
-  };
-  
-  export type UserMenuOption = {
-    id: string;
-    label: string;
-    icon: string;
-    action: () => void;
-  };
+  id: string;
+  title: string;
+  icon: string;
+  href: string;
+};
+
+export type UserMenuOption = {
+  id: string;
+  label: string;
+  icon: string;
+  action: () => void;
+};
 
 /** auth & users */
 
 const userSchema = z.object({
-    id:z.number(),
-    name:z.string(),
-    lastname:z.string(),
-    username:z.string(),
-    email:z.string().email(),
-    password:z.string(),
-    passwordRepeat:z.string(),
-    token: z.string(),
-    admin:z.boolean(),
-    cliente:z.boolean(),
-    veterinario:z.boolean(),
-    imageProfile:z.string()
+  id: z.number(),
+  name: z.string(),
+  lastname: z.string(),
+  username: z.string(),
+  email: z.string().email(),
+  password: z.string(),
+  passwordRepeat: z.string(),
+  token: z.string(),
+  admin: z.boolean(),
+  cliente: z.boolean(),
+  veterinario: z.boolean(),
+  imageProfile: z.string(),
 });
-
 
 export const authenticationResponseSchema = z.object({
-    message:z.string(),
-    token:z.string()
-})
-
-const UserEmailSchema = z.object({
-    email: z.string().email(),
+  message: z.string(),
+  token: z.string(),
 });
 
-export const userAndGroupSchema = z.array(z.object({
-    id:z.number(),
-    name:z.string(),
-    lastname:z.string(),
-    email:z.string().email(),
-    roles:z.array(z.object({
-      id:z.number(),
-      name:z.string()
-    }))
-}))
+const UserEmailSchema = z.object({
+  email: z.string().email(),
+});
 
-const updateUserSchema =z.object({
-  name:z.string(),
-  lastname:z.string(),
-  email:z.string().email(),
-  enabled:z.boolean()
-})
+export const userAndGroupSchema = z.array(
+  z.object({
+    id: z.number(),
+    name: z.string(),
+    lastname: z.string(),
+    email: z.string().email(),
+    roles: z.array(
+      z.object({
+        id: z.number(),
+        name: z.string(),
+      })
+    ),
+  })
+);
 
-const uploadImageProfileSchema =z.object({
-  userId:z.number(),
-  imageBase64:z.string()
-})
+const updateUserSchema = z.object({
+  name: z.string(),
+  lastname: z.string(),
+  email: z.string().email(),
+  enabled: z.boolean(),
+});
 
-export  enum Roles{
-  ROLE_ADMIN="admin",
-  ROLE_CLIENTE="cliente",
-  ROLE_VETERINARIO="veterinary"
+const uploadImageProfileSchema = z.object({
+  userId: z.number(),
+  imageBase64: z.string(),
+});
+
+export enum Roles {
+  ROLE_ADMIN = "admin",
+  ROLE_CLIENTE = "cliente",
+  ROLE_VETERINARIO = "veterinary",
 }
 
-export enum RolesBackend{
-  ROLE_ADMIN="ROLE_ADMIN",
-  ROLE_CLIENTE="ROLE_CLIENTE",
-  ROLE_VETERINARIO="ROLE_VETERINARIO"
+export enum RolesBackend {
+  ROLE_ADMIN = "ROLE_ADMIN",
+  ROLE_CLIENTE = "ROLE_CLIENTE",
+  ROLE_VETERINARIO = "ROLE_VETERINARIO",
 }
 
 const petSchema = z.object({
-  id:z.number(),
-  nombre:z.string(),
-  especie:z.string(),
-  raza:z.string(),
-  edad:z.number(),
-  caracteristicas : z.string(),
-  peso : z.number(),
-  color:z.string(),
-  imagePet : z.string(),
-})
+  id: z.number(),
+  nombre: z.string(),
+  especie: z.string(),
+  raza: z.string(),
+  edad: z.number(),
+  caracteristicas: z.string(),
+  peso: z.number(),
+  color: z.string(),
+  imagePet: z.string(),
+});
 
-type User = z.infer<typeof userSchema>;
-export type UserLoginForm = Pick<User,'username' | 'password'>;
-export type RegisterForm = Omit<User,"id" | 'token'>;
-export type ConfirmToken = Pick<User,'token'>;
-export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
-export type UserEmail = z.infer<typeof UserEmailSchema>;
-export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
-export type UserUpdateSchema = z.infer<typeof updateUserSchema>;
-export type ServiciosType = z.infer<typeof serviciosSchema>;
-export type MascotaType = z.infer<typeof MascotaSchema>;
-export type HorariosType = z.infer<typeof horariosSchema>;
-export type VeterinarianType = z.infer<typeof veterinarioSchema>;
-export type UploadImageProfileSchema = z.infer<typeof uploadImageProfileSchema>
-export type PetSchema = z.infer<typeof petSchema>
-export type PetRegisterSchema = Omit<PetSchema, 'id'>
+//historica clinica
+export const historiaClinicaSchema = z.array(
+  z.object({
+    id: z.number(),
+    mascota: z.object({
+      id: z.number(),
+      nombre: z.string(),
+      especie: z.string(),
+      raza: z.string(),
+    }),
+    notas: z.string(),
+    tratamientos: z.string(),
+    recetasMedicas: z.string(),
+    fecha: z.string(),
+    horario: z.string(),
+  })
+);
 
-export type historiaC = {
-  id: number;
-  mascota: {
-    id: number;
-    nombre: string;
-  };
+export const CreateHCSchema = z.object({
+  mascota: z.object({
+    id: z.number(),
+  }),
+  veterinario: z.object({
+    id: z.number(),
+  }),
+  notas: z.string(),
+  tratamientos: z.string(),
+  recetasMedicas: z.string(),
+  fecha: z.string(),
+  horario: z.string(),
+});
+
+export type FormInputs = {
   notas: string;
   tratamientos: string;
   recetasMedicas: string;
-  fecha?: string;
-}
+  mascota: number;
+  fecha: string;
+  horario: string;
+  veterinario: number;
+};
+
+type User = z.infer<typeof userSchema>;
+export type UserLoginForm = Pick<User, "username" | "password">;
+export type RegisterForm = Omit<User, "id" | "token">;
+export type ConfirmToken = Pick<User, "token">;
+export type AuthResponseSchema = z.infer<typeof authenticationResponseSchema>;
+export type UserEmail = z.infer<typeof UserEmailSchema>;
+export type TableColumnSchema = z.infer<typeof userAndGroupSchema>;
+export type TableColumnElement = z.infer<typeof userAndGroupSchema.element>;
+export type UserUpdateSchema = z.infer<typeof updateUserSchema>;
+export type ServiciosType = z.infer<typeof serviciosSchema>;
+export type ServiciosObject = z.infer<typeof serviciosSchema.element>;
+export type MascotaType = z.infer<typeof MascotaSchema>;
+export type HorariosType = z.infer<typeof horariosSchema>;
+export type VeterinarianType = z.infer<typeof veterinarioSchema>;
+export type UploadImageProfileSchema = z.infer<typeof uploadImageProfileSchema>;
+export type PetSchema = z.infer<typeof petSchema>;
+export type PetRegisterSchema = Omit<PetSchema, "id">;
+export type historiaC = z.infer<typeof historiaClinicaSchema.element>;
+export type createHC = z.infer<typeof CreateHCSchema>;

@@ -5,70 +5,37 @@ import { HistoriaClinicaTable } from "@/components/ui/historia-clinica/HistoriaC
 import { HistoriaClinicaForm } from "@/components/ui/historia-clinica/HistoriaClinicaForm";
 import { HistoriaClinicaDetail } from "@/components/ui/historia-clinica/HistoriaClinicaDetail";
 import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import FullScreenModal from "@/components/ui/modal";
 import { useAuth } from "@/hooks/UseAuth";
-
-// Datos de ejemplo
-const historiasEjemplo: historiaC[] = [
-  {
-    id: 1,
-    mascota: {
-      id: 1,
-      nombre: "Luna",
-    },
-    notas: "Revisión general. Estado saludable.",
-    tratamientos: "Vacuna anual y desparasitación",
-    recetasMedicas: "Antiparasitario oral - 1 comprimido",
-    fecha: "2025-03-24",
-  },
-  {
-    id: 2,
-    mascota: {
-      id: 2,
-      nombre: "Max",
-    },
-    notas: "Presenta cojera en pata trasera derecha",
-    tratamientos: "Radiografía y antiinflamatorios",
-    recetasMedicas: "Carprofeno 100mg - 1 comprimido cada 12 horas por 5 días",
-    fecha: "2025-03-23",
-  },
-  {
-    id: 3,
-    mascota: {
-      id: 3,
-      nombre: "Simba",
-    },
-    notas: "Control post-operatorio de castración",
-    tratamientos: "Limpieza de herida y antibióticos",
-    recetasMedicas: "Amoxicilina 250mg - 1 comprimido cada 12 horas por 7 días",
-    fecha: "2025-03-22",
-  },
-];
+import { getAllHistoriasClinicas } from "@/api/HistoriaClinicaApi";
 
 export function HistoriaClinica() {
   const [search, setSearch] = useState("");
-  const [selectedHistoria, setSelectedHistoria] = useState<historiaC | null>(null);
+  const [selectedHistoria, setSelectedHistoria] = useState<historiaC | null>(
+    null
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const { data: user } = useAuth();
 
   // Usar datos de ejemplo en lugar de la llamada a la API
-  const { data: historias = historiasEjemplo } = useQuery({
-    queryKey: ["historias-clinicas"],
-    queryFn: () => Promise.resolve(historiasEjemplo), // Simular llamada a la API
+  const { data: historias } = useQuery({
+    queryKey: ["historiaClinica"],
+    queryFn: () => getAllHistoriasClinicas(user!), // Simular llamada a la API
     enabled: !!user,
+    refetchOnMount: true, // Asegurar que se ejecute al montar el componente
     retry: false,
   });
 
-  const filteredHistorias = historias.filter(
+  const filteredHistorias = historias?.filter(
     (historia) =>
       historia.mascota.nombre.toLowerCase().includes(search.toLowerCase()) ||
       historia.tratamientos.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleViewHistoria = (historia: historiaC) => {
-    setSelectedHistoria(historia);
+  const handleViewHistoria = (historia: historiaC | undefined) => {
+    setSelectedHistoria(historia || null);
     setIsModalOpen(true);
   };
 
@@ -83,12 +50,6 @@ export function HistoriaClinica() {
 
   const handleCloseFormModal = () => {
     setIsFormModalOpen(false);
-  };
-
-  const handleSubmit = async (data: any) => {
-    // TODO: Implementar la lógica para guardar la historia clínica
-    console.log(data);
-    handleCloseFormModal();
   };
 
   return (
@@ -117,7 +78,7 @@ export function HistoriaClinica() {
       {/* Tabla */}
       <div className="bg-white shadow rounded-lg dark:bg-gray-800">
         <HistoriaClinicaTable
-          historias={filteredHistorias}
+          historias={filteredHistorias || []}
           onView={handleViewHistoria}
         />
       </div>
@@ -129,7 +90,9 @@ export function HistoriaClinica() {
         title="Detalle de Historia Clínica"
         isBack={false}
       >
-        {selectedHistoria && <HistoriaClinicaDetail historia={selectedHistoria} />}
+        {selectedHistoria && (
+          <HistoriaClinicaDetail historia={selectedHistoria} />
+        )}
       </FullScreenModal>
 
       {/* Modal de Formulario */}
@@ -140,7 +103,7 @@ export function HistoriaClinica() {
         isBack={false}
       >
         <div className="p-6">
-          <HistoriaClinicaForm onSubmit={handleSubmit} />
+          <HistoriaClinicaForm onClose={handleCloseFormModal} user={user} />
         </div>
       </FullScreenModal>
     </div>

@@ -68,10 +68,15 @@ export const getHorariosDisponibles = async ({
 };
 
 export const getMascotas = async (
-  userId: number
+  userId: number | null
 ): Promise<MascotaType | undefined> => {
   try {
-    const url = `${BASE_URL}/api/mascota/user/${userId}`;
+    let url: string;
+    if (userId) {
+      url = `${BASE_URL}/api/mascota/user/${userId}`;
+    } else {
+      url = `${BASE_URL}/api/mascota`;
+    }
     const { data } = await api.get<MascotaType>(url);
     const response = MascotaSchema.safeParse(data);
     if (response.success) {

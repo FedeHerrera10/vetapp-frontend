@@ -1,28 +1,23 @@
-import { historiaC } from "@/types/index";
+import { createHC, FormInputs } from "@/types/index";
 import { useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
-import { getPets } from "@/api/PetApi";
-import { useAuth } from "@/hooks/UseAuth";
-import { PetType } from "@/types";
-
-interface FormInputs {
-  notas: string;
-  tratamientos: string;
-  recetasMedicas: string;
-  mascotaId: number;
-}
+import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
+import { getMascotas } from "@/api/VetApi";
+import { formatISO, format } from "date-fns";
+import { createHistoriaClinica } from "@/api/HistoriaClinicaApi";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-  onSubmit: (data: FormInputs) => void;
-  initialData?: historiaC;
+  onClose: () => void;
+  user;
 }
 
-export const HistoriaClinicaForm = ({ onSubmit, initialData }: Props) => {
-  const { data: user } = useAuth();
-  
-  const { data: mascotas = [] } = useQuery<PetType[]>({
-    queryKey: ["mascotas"],
-    queryFn: () => getPets(user!),
+export const HistoriaClinicaForm = ({ onClose, user }: Props) => {
+  const queryClient = useQueryClient();
+
+  const { data: mascotas } = useQuery({
+    queryKey: ["vetModalMascotas"],
+    queryFn: () => getMascotas(null),
     enabled: !!user,
     retry: false,
   });
@@ -31,14 +26,45 @@ export const HistoriaClinicaForm = ({ onSubmit, initialData }: Props) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm<FormInputs>({
     defaultValues: {
-      mascotaId: initialData?.mascota.id || 0,
-      notas: initialData?.notas || "",
-      tratamientos: initialData?.tratamientos || "",
-      recetasMedicas: initialData?.recetasMedicas || "",
+      mascota: 0,
+      notas: "",
+      tratamientos: "",
+      recetasMedicas: "",
     },
   });
+
+  const navigate = useNavigate();
+
+  const { mutate: createHC } = useMutation({
+    mutationFn: createHistoriaClinica,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["historiaClinica"],
+      });
+      toast.success("Historia clinica creada exitosamente");
+      reset();
+      onClose();
+      navigate("/app/historias-clinicas");
+    },
+    onError: (error) => {
+      toast.error("Error al crear la historia clinica");
+      console.error("Error:", error);
+    },
+  });
+
+  const onSubmit = async (data: FormInputs) => {
+    const dataForm: createHC = {
+      ...data,
+      fecha: formatISO(new Date(), { representation: "date" }),
+      horario: format(new Date(), "HH:mm"),
+      veterinario: { id: user.id },
+      mascota: { id: data.mascota },
+    };
+    createHC(dataForm);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -50,21 +76,21 @@ export const HistoriaClinicaForm = ({ onSubmit, initialData }: Props) => {
           Mascota
         </label>
         <select
-          {...register("mascotaId", { 
+          {...register("mascota", {
             required: "Debe seleccionar una mascota",
             valueAsNumber: true,
           })}
           className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         >
           <option value="">Seleccione una mascota</option>
-          {mascotas.map((mascota: PetType) => (
+          {mascotas?.map((mascota) => (
             <option key={mascota.id} value={mascota.id}>
               {mascota.nombre}
             </option>
           ))}
         </select>
-        {errors.mascotaId && (
-          <p className="mt-1 text-sm text-red-600">{errors.mascotaId.message}</p>
+        {errors.mascota && (
+          <p className="mt-1 text-sm text-red-600">{errors.mascota.message}</p>
         )}
       </div>
 
@@ -98,7 +124,9 @@ export const HistoriaClinicaForm = ({ onSubmit, initialData }: Props) => {
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white px-3 py-2"
         />
         {errors.tratamientos && (
-          <p className="mt-1 text-sm text-red-600">{errors.tratamientos.message}</p>
+          <p className="mt-1 text-sm text-red-600">
+            {errors.tratamientos.message}
+          </p>
         )}
       </div>
 
@@ -110,7 +138,9 @@ export const HistoriaClinicaForm = ({ onSubmit, initialData }: Props) => {
           Recetas Médicas
         </label>
         <textarea
-          {...register("recetasMedicas", { required: "Este campo es requerido" })}
+          {...register("recetasMedicas", {
+            required: "Este campo es requerido",
+          })}
           rows={4}
           className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white px-3 py-2"
         />
